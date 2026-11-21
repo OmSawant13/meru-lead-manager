@@ -148,8 +148,8 @@ Interview/
 
 ### 1. Clone & Setup
 ```bash
-git clone <YOUR_GIT_REPO_URL>
-cd Interview
+git clone https://github.com/OmSawant13/meru-lead-manager.git
+cd meru-lead-manager
 npm run setup
 ```
 > `npm run setup` automatically installs dependencies for both frontend and backend, sets up Prisma client, and seeds sample data into the database!
