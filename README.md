@@ -7,36 +7,46 @@ A production-grade, highly-responsive, full-stack **Lead Manager CRM** designed 
 
 ---
 
-## 📑 Table of Contents
-0. [🎬 Video Demo Walkthrough](#-video-demo-walkthrough)
-1. [Assignment Requirements Checklist](#-assignment-requirements-checklist)
-2. [Tech Stack & Architecture Decisions](#-tech-stack--architecture-decisions)
-3. [Architecture Overview](#-architecture-overview)
-4. [Quick Start (Run Locally)](#-quick-start-run-locally)
-5. [Evaluator Demo Account](#-evaluator-demo-account)
-6. [API Documentation](#-api-documentation)
-7. [Automated Testing (22/22 Passing)](#-automated-testing-2222-passing)
-8. [Assumptions Made](#-assumptions-made)
-9. [What I Would Improve With More Time](#-what-i-would-improve-with-more-time)
-10. [Submission Notes (Proud Of / Tricky Parts)](#-submission-notes-for-evaluation)
+## 🎬 Product Demo Walkthrough
+
+<div align="center">
+  <a href="demo.mp4">
+    <img src="demo-preview.gif" alt="LeadFlow CRM Interactive Demo Walkthrough" width="100%" />
+  </a>
+  <p align="center">
+    <a href="demo.mp4">
+      <img src="https://img.shields.io/badge/▶_Watch_Full_HD_Video_(1m_37s)-demo.mp4-6366f1?style=for-the-badge&logoColor=white" alt="Watch Demo Video" />
+    </a>
+  </p>
+  <p><em>Click the preview above or open <a href="demo.mp4"><strong>demo.mp4</strong></a> to watch the full 1440×900 walkthrough with all features in action.</em></p>
+</div>
+
+| Timestamp | Feature Demonstrated | Details |
+| :--- | :--- | :--- |
+| **00:00 – 00:06** | **1-Click Screening Auth** | Launches demo account directly as **Aarav Sharma** (`demo@example.com`). |
+| **00:06 – 00:18** | **Floating Bento Dashboard** | Displays live KPI counters, SVG gradient sparklines, and conversion rate. |
+| **00:18 – 00:28** | **Interactive Deal Isolation** | Clicks **Qualified** (filters table) and **Closed / Lost**, then resets to **Total Pipeline**. |
+| **00:28 – 00:36** | **Dark & Light Mode Switcher** | Toggles seamlessly from **Obsidian Dark** (`#090d16`) to **Crisp Light** and back. |
+| **00:36 – 00:44** | **Real-Time Debounced Search** | Types `"Priya"` into the search bar with instant sub-300ms regex matching across leads. |
+| **00:44 – 00:58** | **620px Slide-Over Dossier Drawer** | Opens Rajesh Patel's lead profile with smooth 500ms slide-in, copies email to clipboard, and closes drawer. |
+| **00:58 – 01:14** | **Capture Enterprise Lead** | Adds **Aman Gupta** (*boAt Lifestyle India*, Referral, Qualified) with validation and toast alert. |
+| **01:14 – 01:28** | **Dual-View Kanban Board** | Switches to interactive Kanban columns organized by stage (*New*, *Contacted*, *Qualified*, *Lost*). |
+| **01:28 – 01:37** | **Table Switch & CSV Export** | Switches back to Table View and clicks **Export CSV** to download the pipeline. |
 
 ---
 
-## 🎬 Video Demo Walkthrough
-
-A high-definition automated walkthrough (1m 37s, 1440x900) demonstrating every required and bonus feature with real-time UI interactions:
-
-- 📹 **Demo Video File**: [`demo.mp4`](demo.mp4) (H.264 High Profile, faststart-optimized)
-- **Features Demonstrated in Order**:
-  1. **1-Click Screening Access**: Auto-authentication as **Aarav Sharma** (`demo@example.com`).
-  2. **Bento Grid Dashboard**: Real-time KPI summary with SVG gradient sparklines.
-  3. **1-Click Status Isolation**: Clicking KPI cards instantly filters the pipeline.
-  4. **Obsidian Dark & Crisp Light Theme**: Seamless mode switching with persistent theme memory.
-  5. **Debounced Real-Time Search**: Sub-300ms live multi-field filtering across Indian leads.
-  6. **620px Slide-Over Lead Dossier Drawer**: Comprehensive lead profile with 1-click clipboard copy.
-  7. **Enterprise Lead Capture**: Adding **Aman Gupta** (*boAt Lifestyle India*) with Zod form validation.
-  8. **Dual-View Kanban Board**: Visual stage progression across *New*, *Contacted*, *Qualified*, and *Lost*.
-  9. **CSV Data Export**: One-click download of the complete pipeline with ISO timestamps.
+## 📑 Table of Contents
+1. [🎬 Product Demo Walkthrough](#-product-demo-walkthrough)
+2. [Assignment Requirements Checklist](#-assignment-requirements-checklist)
+3. [Tech Stack & Architecture Decisions](#-tech-stack--architecture-decisions)
+4. [Architecture Overview](#-architecture-overview)
+5. [Quick Start (Run Locally)](#-quick-start-run-locally)
+6. [Evaluator Demo Account](#-evaluator-demo-account)
+7. [API Documentation](#-api-documentation)
+8. [Automated Testing (22/22 Passing)](#-automated-testing-2222-passing)
+9. [Assumptions Made](#-assumptions-made)
+10. [What I Would Improve With More Time](#-what-i-would-improve-with-more-time)
+11. [Submission Notes (Proud Of / Tricky Parts)](#-submission-notes-for-evaluation)
 
 ---
 
