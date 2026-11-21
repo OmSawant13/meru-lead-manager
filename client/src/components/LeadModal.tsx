@@ -130,14 +130,14 @@ export const LeadModal: React.FC<LeadModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="relative bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/50 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200">
+      <div className="relative bg-white rounded-3xl max-w-lg w-full shadow-2xl border border-slate-100 overflow-hidden animate-in zoom-in-95 duration-200">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
-          <h2 className="text-lg font-bold text-slate-900">{title}</h2>
+        <div className="flex items-center justify-between px-6 py-4.5 border-b border-slate-100 bg-slate-50/50">
+          <h2 className="text-base font-black text-slate-900 tracking-tight">{title}</h2>
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -146,7 +146,7 @@ export const LeadModal: React.FC<LeadModalProps> = ({
         {/* Form Body */}
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           {serverError && (
-            <div className="p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-sm flex items-center space-x-2">
+            <div className="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold flex items-center space-x-2">
               <AlertCircle className="w-4 h-4 flex-shrink-0" />
               <span>{serverError}</span>
             </div>
@@ -154,7 +154,7 @@ export const LeadModal: React.FC<LeadModalProps> = ({
 
           {/* Name */}
           <div>
-            <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+            <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
               Full Name <span className="text-rose-500">*</span>
             </label>
             <input
@@ -165,21 +165,21 @@ export const LeadModal: React.FC<LeadModalProps> = ({
                 if (errors.name) setErrors({ ...errors, name: '' });
               }}
               placeholder="e.g. Sarah Connor"
-              className={`w-full px-3.5 py-2 text-sm rounded-lg border ${
+              className={`w-full px-4 py-2.5 text-xs sm:text-sm rounded-2xl border ${
                 errors.name
-                  ? 'border-rose-400 bg-rose-50/30 focus:ring-rose-500'
-                  : 'border-slate-200 bg-slate-50 focus:bg-white focus:ring-indigo-500'
-              } focus:outline-none focus:ring-2 transition-all`}
+                  ? 'border-rose-400 bg-rose-50/30 focus:ring-rose-500/20'
+                  : 'border-slate-200 bg-slate-50/70 focus:bg-white focus:ring-indigo-500/15 focus:border-indigo-500'
+              } focus:outline-none focus:ring-4 transition-all duration-200 font-medium`}
             />
             {errors.name && (
-              <p className="mt-1 text-xs text-rose-600 font-medium">{errors.name}</p>
+              <p className="mt-1 text-xs text-rose-600 font-semibold">{errors.name}</p>
             )}
           </div>
 
           {/* Email & Phone Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
                 Email Address <span className="text-rose-500">*</span>
               </label>
               <input
@@ -190,19 +190,19 @@ export const LeadModal: React.FC<LeadModalProps> = ({
                   if (errors.email) setErrors({ ...errors, email: '' });
                 }}
                 placeholder="sarah@example.com"
-                className={`w-full px-3.5 py-2 text-sm rounded-lg border ${
+                className={`w-full px-4 py-2.5 text-xs sm:text-sm rounded-2xl border ${
                   errors.email
-                    ? 'border-rose-400 bg-rose-50/30 focus:ring-rose-500'
-                    : 'border-slate-200 bg-slate-50 focus:bg-white focus:ring-indigo-500'
-                } focus:outline-none focus:ring-2 transition-all`}
+                    ? 'border-rose-400 bg-rose-50/30 focus:ring-rose-500/20'
+                    : 'border-slate-200 bg-slate-50/70 focus:bg-white focus:ring-indigo-500/15 focus:border-indigo-500'
+                } focus:outline-none focus:ring-4 transition-all duration-200 font-medium`}
               />
               {errors.email && (
-                <p className="mt-1 text-xs text-rose-600 font-medium">{errors.email}</p>
+                <p className="mt-1 text-xs text-rose-600 font-semibold">{errors.email}</p>
               )}
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
                 Phone Number
               </label>
               <input
@@ -213,21 +213,21 @@ export const LeadModal: React.FC<LeadModalProps> = ({
                   if (errors.phone) setErrors({ ...errors, phone: '' });
                 }}
                 placeholder="+1 (555) 000-0000"
-                className={`w-full px-3.5 py-2 text-sm rounded-lg border ${
+                className={`w-full px-4 py-2.5 text-xs sm:text-sm rounded-2xl border ${
                   errors.phone
-                    ? 'border-rose-400 bg-rose-50/30 focus:ring-rose-500'
-                    : 'border-slate-200 bg-slate-50 focus:bg-white focus:ring-indigo-500'
-                } focus:outline-none focus:ring-2 transition-all`}
+                    ? 'border-rose-400 bg-rose-50/30 focus:ring-rose-500/20'
+                    : 'border-slate-200 bg-slate-50/70 focus:bg-white focus:ring-indigo-500/15 focus:border-indigo-500'
+                } focus:outline-none focus:ring-4 transition-all duration-200 font-medium`}
               />
               {errors.phone && (
-                <p className="mt-1 text-xs text-rose-600 font-medium">{errors.phone}</p>
+                <p className="mt-1 text-xs text-rose-600 font-semibold">{errors.phone}</p>
               )}
             </div>
           </div>
 
           {/* Company */}
           <div>
-            <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+            <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
               Company / Organization
             </label>
             <input
@@ -235,20 +235,20 @@ export const LeadModal: React.FC<LeadModalProps> = ({
               value={company}
               onChange={(e) => setCompany(e.target.value)}
               placeholder="e.g. Cyberdyne Systems"
-              className="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+              className="w-full px-4 py-2.5 text-xs sm:text-sm rounded-2xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-500/15 focus:border-indigo-500 transition-all duration-200 font-medium"
             />
           </div>
 
           {/* Source & Status Dropdowns */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
-                Source <span className="text-rose-500">*</span>
+              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
+                Lead Source <span className="text-rose-500">*</span>
               </label>
               <select
                 value={source}
                 onChange={(e) => setSource(e.target.value as LeadSource)}
-                className="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all cursor-pointer"
+                className="w-full px-4 py-2.5 text-xs sm:text-sm rounded-2xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-500/15 focus:border-indigo-500 transition-all duration-200 font-bold cursor-pointer"
               >
                 {SOURCES.map((s) => (
                   <option key={s} value={s}>
@@ -259,13 +259,13 @@ export const LeadModal: React.FC<LeadModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
-                Status <span className="text-rose-500">*</span>
+              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
+                Pipeline Stage <span className="text-rose-500">*</span>
               </label>
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value as LeadStatus)}
-                className="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all cursor-pointer font-medium"
+                className="w-full px-4 py-2.5 text-xs sm:text-sm rounded-2xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-500/15 focus:border-indigo-500 transition-all duration-200 font-black cursor-pointer"
               >
                 {STATUSES.map((s) => (
                   <option key={s} value={s}>
@@ -278,32 +278,32 @@ export const LeadModal: React.FC<LeadModalProps> = ({
 
           {/* Notes */}
           <div>
-            <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
-              Notes / Context
+            <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
+              Notes & Deal Context
             </label>
             <textarea
               rows={3}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Any context about requirements, conversation history, or deal size..."
-              className="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+              placeholder="Key requirements, budget, next steps..."
+              className="w-full px-4 py-2.5 text-xs sm:text-sm rounded-2xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-500/15 focus:border-indigo-500 transition-all duration-200 font-medium"
             />
           </div>
 
           {/* Modal Actions */}
-          <div className="flex items-center justify-end space-x-3 pt-4 border-t border-slate-100">
+          <div className="flex items-center justify-end space-x-3 pt-3 border-t border-slate-100">
             <button
               type="button"
               onClick={onClose}
               disabled={isSubmitting}
-              className="px-4 py-2 text-sm font-semibold text-slate-600 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition-colors"
+              className="px-4 py-2 text-xs font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-5 py-2 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 rounded-lg shadow-sm shadow-indigo-200 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="btn-primary-glow px-5 py-2.5 text-xs font-bold text-white rounded-2xl disabled:opacity-50 cursor-pointer"
             >
               {isSubmitting ? 'Saving...' : initialData ? 'Update Lead' : 'Create Lead'}
             </button>

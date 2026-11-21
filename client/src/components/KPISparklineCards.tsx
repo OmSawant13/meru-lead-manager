@@ -9,18 +9,22 @@ interface KPISparklineCardsProps {
   isLoading: boolean;
 }
 
-// Sparkline SVG Component with Gradient Fill
+// Sparkline SVG Component with Glow & Gradient Fill
 const Sparkline: React.FC<{
   color: string;
   gradientId: string;
   path: string;
 }> = ({ color, gradientId, path }) => (
-  <svg className="w-24 h-12 overflow-visible" viewBox="0 0 100 40">
+  <svg className="w-28 h-12 overflow-visible" viewBox="0 0 100 40">
     <defs>
       <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor={color} stopOpacity="0.3" />
+        <stop offset="0%" stopColor={color} stopOpacity="0.25" />
         <stop offset="100%" stopColor={color} stopOpacity="0.0" />
       </linearGradient>
+      <filter id={`glow-${gradientId}`} x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="2" result="blur" />
+        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+      </filter>
     </defs>
     <path
       d={`${path} L 100 40 L 0 40 Z`}
@@ -33,6 +37,7 @@ const Sparkline: React.FC<{
       strokeWidth="2.5"
       strokeLinecap="round"
       strokeLinejoin="round"
+      filter={`url(#glow-${gradientId})`}
     />
   </svg>
 );
@@ -59,12 +64,13 @@ export const KPISparklineCards: React.FC<KPISparklineCardsProps> = ({
       count: total,
       subText: 'vs. previous 30 days',
       badge: '↑ +33%',
-      badgeColor: 'text-emerald-700 bg-emerald-50 border-emerald-200/60',
+      badgeColor: 'text-emerald-700 bg-emerald-50 border-emerald-200/80',
       icon: Layers,
-      iconBg: 'bg-indigo-50 text-indigo-600',
+      iconBg: 'bg-indigo-50/90 text-indigo-600',
       sparklineColor: '#6366f1',
       gradientId: 'spark-total',
       path: 'M 0 32 Q 25 35, 45 20 T 80 10 T 100 8',
+      hoverGlow: 'hover:border-indigo-300 hover:shadow-indigo-500/10',
     },
     {
       title: 'New Inquiries',
@@ -72,10 +78,11 @@ export const KPISparklineCards: React.FC<KPISparklineCardsProps> = ({
       count: newCount,
       percentage: `${newShare}%`,
       icon: UserPlus,
-      iconBg: 'bg-blue-50 text-blue-600',
+      iconBg: 'bg-blue-50/90 text-blue-600',
       sparklineColor: '#3b82f6',
       gradientId: 'spark-new',
       path: 'M 0 25 Q 30 35, 50 22 T 80 28 T 100 14',
+      hoverGlow: 'hover:border-blue-300 hover:shadow-blue-500/10',
     },
     {
       title: 'Qualified',
@@ -83,10 +90,11 @@ export const KPISparklineCards: React.FC<KPISparklineCardsProps> = ({
       count: qualifiedCount,
       percentage: `${qualifiedShare}%`,
       icon: CheckCircle2,
-      iconBg: 'bg-emerald-50 text-emerald-600',
+      iconBg: 'bg-emerald-50/90 text-emerald-600',
       sparklineColor: '#10b981',
       gradientId: 'spark-qualified',
       path: 'M 0 35 Q 25 32, 50 25 T 75 15 T 100 12',
+      hoverGlow: 'hover:border-emerald-300 hover:shadow-emerald-500/10',
     },
     {
       title: 'Closed / Lost',
@@ -94,10 +102,11 @@ export const KPISparklineCards: React.FC<KPISparklineCardsProps> = ({
       count: lostCount,
       percentage: `${lostShare}%`,
       icon: XCircle,
-      iconBg: 'bg-rose-50 text-rose-600',
+      iconBg: 'bg-rose-50/90 text-rose-600',
       sparklineColor: '#f43f5e',
       gradientId: 'spark-lost',
       path: 'M 0 20 Q 30 18, 55 30 T 80 22 T 100 28',
+      hoverGlow: 'hover:border-rose-300 hover:shadow-rose-500/10',
     },
   ];
 
@@ -112,16 +121,16 @@ export const KPISparklineCards: React.FC<KPISparklineCardsProps> = ({
             key={card.title}
             type="button"
             onClick={() => onSelectStatus(card.statusValue)}
-            className={`text-left bg-white p-5 rounded-2xl border transition-all duration-200 relative overflow-hidden group cursor-pointer shadow-xs ${
+            className={`card-hover text-left bg-white p-5 rounded-3xl border relative overflow-hidden group cursor-pointer shadow-xs ${
               isSelected
-                ? 'border-indigo-600 ring-2 ring-indigo-500/20 shadow-md bg-gradient-to-b from-white to-indigo-50/20'
-                : 'border-slate-200/80 hover:border-slate-300 hover:shadow-md hover:-translate-y-0.5'
+                ? 'border-indigo-600 ring-4 ring-indigo-500/15 shadow-lg bg-gradient-to-b from-white to-indigo-50/30'
+                : `border-slate-200/80 ${card.hoverGlow}`
             }`}
           >
             {/* Top row: Icon + Title */}
-            <div className="flex items-center space-x-2.5 mb-3">
+            <div className="flex items-center space-x-2.5 mb-3.5">
               <div
-                className={`w-7 h-7 rounded-lg ${card.iconBg} flex items-center justify-center flex-shrink-0 shadow-2xs`}
+                className={`w-8 h-8 rounded-xl ${card.iconBg} flex items-center justify-center flex-shrink-0 shadow-2xs transition-transform duration-300 group-hover:scale-110`}
               >
                 <Icon className="w-4 h-4" />
               </div>
@@ -130,7 +139,7 @@ export const KPISparklineCards: React.FC<KPISparklineCardsProps> = ({
               </span>
             </div>
 
-            {/* Bottom Row: Numbers & Sparkline */}
+            {/* Bottom Row: Count & Sparkline */}
             <div className="flex items-end justify-between">
               <div>
                 <div className="flex items-baseline space-x-2">
@@ -145,9 +154,9 @@ export const KPISparklineCards: React.FC<KPISparklineCardsProps> = ({
                 </div>
 
                 {card.badge && (
-                  <div className="mt-2 flex items-center space-x-1.5">
+                  <div className="mt-2.5 flex items-center space-x-1.5">
                     <span
-                      className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold border ${card.badgeColor}`}
+                      className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-extrabold border ${card.badgeColor}`}
                     >
                       {card.badge}
                     </span>
