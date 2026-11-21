@@ -37,20 +37,26 @@ A modern, responsive, full-stack **Lead Manager** web application designed for s
   - **Backend**: Strict schema validation powered by **Zod**, returning structured 400 error arrays.
 
 ### Bonus Features (Optional) — 100% Implemented
+- [x] **Dual-View Experience (Table + Kanban Pipeline Board)**:
+  - Toggle between **Table View** and **Interactive Pipeline Board** with 4 stage columns (`New`, `Contacted`, `Qualified`, `Lost`) and 1-click stage advancement.
+- [x] **Lead Dossier Slide-Over Drawer**:
+  - Clicking any lead opens a sleek Stripe/Linear-style side sheet showing full contact info, 1-click "Copy Email" / "Call Phone", company details, stage switcher, and notes.
+- [x] **Export to CSV**:
+  - 1-click client-side CSV export of currently filtered leads for sales reporting.
 - [x] **Authentication (JWT + Scoped Ownership)**:
   - Full signup & login flow with secure password hashing (`bcryptjs`) and signed JWT tokens.
   - **Tenant Isolation**: Each user can only view, create, edit, or delete their own leads.
   - **1-Click Demo Login**: Pre-seeded account (`demo@example.com` / `password123`) so evaluators can test immediately without typing.
-- [x] **Interactive Dashboard KPI Counts**:
-  - Live summary cards: **Total Leads**, **New**, **Contacted**, **Qualified**, and **Lost** with count and percentage share.
+- [x] **Interactive Dashboard KPI Counts & Conversion Metrics**:
+  - Live summary cards: **Total Leads**, **New**, **Contacted**, **Qualified**, and **Lost** with count, percentage share, and a live **Conversion Rate %**.
   - **Interactive Cards**: Clicking any status KPI card automatically filters the leads table by that status.
 - [x] **Sorting & Pagination**:
   - Sortable table columns (`Name`, `Company`, `Status`, `Added Date`) with ascending/descending toggle indicators.
   - Pagination controls with configurable page sizes (5, 10, 25, 50 rows per page).
 - [x] **Automated API Testing**:
   - 22 automated integration tests using **Jest** and **Supertest** covering Auth, Leads CRUD, validation rules, and tenant security.
-- [x] **Toast Notification Feedback**:
-  - Real-time success and error toasts for all user actions (create, edit, delete, status change).
+- [x] **Toast Notification Feedback & Keyboard Shortcuts**:
+  - Real-time success and error toasts for all user actions (create, edit, delete, status change), plus `/` shortcut to focus search.
 
 ---
 
