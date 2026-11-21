@@ -1,5 +1,6 @@
 import React from 'react';
 import { Lead, LeadStatus } from '../types';
+import { getSourceIcon } from './LeadDrawer';
 import {
   Edit2,
   Trash2,
@@ -11,6 +12,7 @@ import {
   Phone,
   Calendar,
   Sparkles,
+  Eye,
 } from 'lucide-react';
 
 interface LeadTableProps {
@@ -21,6 +23,7 @@ interface LeadTableProps {
   onSort: (field: any) => void;
   onEdit: (lead: Lead) => void;
   onDelete: (lead: Lead) => void;
+  onSelectLead: (lead: Lead) => void;
   onStatusChange: (lead: Lead, newStatus: LeadStatus) => void;
   onOpenCreateModal: () => void;
 }
@@ -28,19 +31,19 @@ interface LeadTableProps {
 export const StatusBadge: React.FC<{ status: LeadStatus }> = ({ status }) => {
   const styles: Record<LeadStatus, { bg: string; dot: string }> = {
     New: {
-      bg: 'bg-blue-50 border-blue-200 text-blue-700',
+      bg: 'bg-blue-50 border-blue-200/80 text-blue-700',
       dot: 'bg-blue-500',
     },
     Contacted: {
-      bg: 'bg-amber-50 border-amber-200 text-amber-700',
+      bg: 'bg-amber-50 border-amber-200/80 text-amber-700',
       dot: 'bg-amber-500',
     },
     Qualified: {
-      bg: 'bg-emerald-50 border-emerald-200 text-emerald-700',
+      bg: 'bg-emerald-50 border-emerald-200/80 text-emerald-700',
       dot: 'bg-emerald-500',
     },
     Lost: {
-      bg: 'bg-rose-50 border-rose-200 text-rose-700',
+      bg: 'bg-rose-50 border-rose-200/80 text-rose-700',
       dot: 'bg-rose-500',
     },
   };
@@ -49,9 +52,9 @@ export const StatusBadge: React.FC<{ status: LeadStatus }> = ({ status }) => {
 
   return (
     <span
-      className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border ${current.bg}`}
+      className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold border shadow-2xs ${current.bg}`}
     >
-      <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${current.dot}`}></span>
+      <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${current.dot} animate-pulse`}></span>
       {status}
     </span>
   );
@@ -65,18 +68,28 @@ export const LeadTable: React.FC<LeadTableProps> = ({
   onSort,
   onEdit,
   onDelete,
+  onSelectLead,
   onStatusChange,
   onOpenCreateModal,
 }) => {
   const renderSortIcon = (field: string) => {
     if (sortBy !== field) {
-      return <ArrowUpDown className="w-3.5 h-3.5 ml-1 text-slate-400 group-hover:text-slate-600" />;
+      return <ArrowUpDown className="w-3.5 h-3.5 ml-1 text-slate-300 group-hover:text-slate-500" />;
     }
     return sortOrder === 'asc' ? (
       <ArrowUp className="w-3.5 h-3.5 ml-1 text-indigo-600" />
     ) : (
       <ArrowDown className="w-3.5 h-3.5 ml-1 text-indigo-600" />
     );
+  };
+
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map((n) => n[0])
+      .slice(0, 2)
+      .join('')
+      .toUpperCase();
   };
 
   const formatDate = (dateString: string) => {
@@ -90,13 +103,13 @@ export const LeadTable: React.FC<LeadTableProps> = ({
 
   if (isLoading && leads.length === 0) {
     return (
-      <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm p-8">
+      <div className="bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs p-8">
         <div className="space-y-4 animate-pulse">
-          <div className="h-10 bg-slate-100 rounded w-full"></div>
-          <div className="h-14 bg-slate-50 rounded w-full"></div>
-          <div className="h-14 bg-slate-50 rounded w-full"></div>
-          <div className="h-14 bg-slate-50 rounded w-full"></div>
-          <div className="h-14 bg-slate-50 rounded w-full"></div>
+          <div className="h-10 bg-slate-100 rounded-xl w-full"></div>
+          <div className="h-14 bg-slate-50 rounded-xl w-full"></div>
+          <div className="h-14 bg-slate-50 rounded-xl w-full"></div>
+          <div className="h-14 bg-slate-50 rounded-xl w-full"></div>
+          <div className="h-14 bg-slate-50 rounded-xl w-full"></div>
         </div>
       </div>
     );
@@ -104,37 +117,37 @@ export const LeadTable: React.FC<LeadTableProps> = ({
 
   if (leads.length === 0) {
     return (
-      <div className="bg-white rounded-xl border border-slate-200 p-12 text-center shadow-sm">
-        <div className="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4">
+      <div className="bg-white rounded-2xl border border-slate-200/80 p-12 text-center shadow-xs">
+        <div className="w-16 h-16 bg-gradient-to-tr from-indigo-50 to-indigo-100/80 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-indigo-200/60 shadow-xs">
           <Sparkles className="w-8 h-8" />
         </div>
-        <h3 className="text-lg font-bold text-slate-800 mb-1">No leads found</h3>
+        <h3 className="text-lg font-bold text-slate-900 mb-1">No leads match your criteria</h3>
         <p className="text-sm text-slate-500 max-w-sm mx-auto mb-6">
-          There are no leads matching your current filters or search query. Try adjusting your search or add a new lead.
+          Try clearing your search query or filters, or capture a new lead into your sales pipeline.
         </p>
         <button
           onClick={onOpenCreateModal}
-          className="inline-flex items-center px-4 py-2 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm transition-colors"
+          className="inline-flex items-center px-4 py-2.5 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-sm shadow-indigo-200 transition-all cursor-pointer"
         >
-          Add New Lead
+          Capture New Lead
         </button>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+    <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-slate-50/80 border-b border-slate-200 text-xs font-semibold text-slate-600 uppercase tracking-wider">
+            <tr className="bg-slate-50/70 border-b border-slate-200/80 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
               <th className="py-3.5 px-4 sm:px-6">
                 <button
                   type="button"
                   onClick={() => onSort('name')}
                   className="group inline-flex items-center focus:outline-none"
                 >
-                  Lead Name
+                  Contact & Lead
                   {renderSortIcon('name')}
                 </button>
               </th>
@@ -155,7 +168,7 @@ export const LeadTable: React.FC<LeadTableProps> = ({
                   onClick={() => onSort('status')}
                   className="group inline-flex items-center focus:outline-none"
                 >
-                  Status
+                  Pipeline Status
                   {renderSortIcon('status')}
                 </button>
               </th>
@@ -165,7 +178,7 @@ export const LeadTable: React.FC<LeadTableProps> = ({
                   onClick={() => onSort('createdAt')}
                   className="group inline-flex items-center focus:outline-none"
                 >
-                  Added Date
+                  Captured On
                   {renderSortIcon('createdAt')}
                 </button>
               </th>
@@ -176,31 +189,31 @@ export const LeadTable: React.FC<LeadTableProps> = ({
             {leads.map((lead) => (
               <tr
                 key={lead.id}
-                className="hover:bg-slate-50/80 transition-colors group"
+                onClick={() => onSelectLead(lead)}
+                className="hover:bg-indigo-50/30 transition-all group cursor-pointer"
               >
-                {/* Lead Name & Contact info */}
+                {/* Lead Name & Avatar */}
                 <td className="py-4 px-4 sm:px-6">
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                      {lead.name}
-                    </span>
-                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1 text-xs text-slate-500">
-                      <a
-                        href={`mailto:${lead.email}`}
-                        className="inline-flex items-center hover:text-indigo-600 transition-colors"
-                      >
-                        <Mail className="w-3.5 h-3.5 mr-1 text-slate-400" />
-                        {lead.email}
-                      </a>
-                      {lead.phone && (
-                        <a
-                          href={`tel:${lead.phone}`}
-                          className="inline-flex items-center hover:text-indigo-600 transition-colors"
-                        >
-                          <Phone className="w-3.5 h-3.5 mr-1 text-slate-400" />
-                          {lead.phone}
-                        </a>
-                      )}
+                  <div className="flex items-center space-x-3.5">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-slate-100 to-slate-200 border border-slate-200 text-slate-700 flex items-center justify-center font-bold text-xs flex-shrink-0 group-hover:from-indigo-600 group-hover:to-violet-600 group-hover:text-white transition-all shadow-2xs">
+                      {getInitials(lead.name)}
+                    </div>
+                    <div className="flex flex-col min-w-0">
+                      <span className="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors truncate">
+                        {lead.name}
+                      </span>
+                      <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-0.5 text-xs text-slate-500">
+                        <span className="inline-flex items-center truncate">
+                          <Mail className="w-3 h-3 mr-1 text-slate-400" />
+                          {lead.email}
+                        </span>
+                        {lead.phone && (
+                          <span className="inline-flex items-center truncate hidden sm:inline-flex">
+                            <Phone className="w-3 h-3 mr-1 text-slate-400" />
+                            {lead.phone}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </td>
@@ -208,9 +221,9 @@ export const LeadTable: React.FC<LeadTableProps> = ({
                 {/* Company */}
                 <td className="py-4 px-4 hidden md:table-cell text-slate-700">
                   {lead.company ? (
-                    <div className="flex items-center text-slate-800">
-                      <Building2 className="w-4 h-4 mr-1.5 text-slate-400" />
-                      <span className="truncate max-w-[180px]">{lead.company}</span>
+                    <div className="flex items-center text-slate-800 font-medium">
+                      <Building2 className="w-3.5 h-3.5 mr-1.5 text-slate-400" />
+                      <span className="truncate max-w-[170px]">{lead.company}</span>
                     </div>
                   ) : (
                     <span className="text-slate-400 italic text-xs">—</span>
@@ -219,25 +232,26 @@ export const LeadTable: React.FC<LeadTableProps> = ({
 
                 {/* Source */}
                 <td className="py-4 px-4 hidden lg:table-cell">
-                  <span className="inline-block px-2 py-0.5 text-xs font-medium bg-slate-100 text-slate-700 rounded-md">
+                  <span className="inline-flex items-center px-2.5 py-1 text-xs font-semibold bg-slate-100/80 text-slate-700 rounded-lg border border-slate-200/60">
+                    <span className="mr-1.5">{getSourceIcon(lead.source)}</span>
                     {lead.source}
                   </span>
                 </td>
 
                 {/* Status + Quick Switch Dropdown */}
-                <td className="py-4 px-4">
+                <td className="py-4 px-4" onClick={(e) => e.stopPropagation()}>
                   <div className="flex items-center space-x-2">
                     <select
                       value={lead.status}
                       onChange={(e) =>
                         onStatusChange(lead, e.target.value as LeadStatus)
                       }
-                      className="text-xs font-semibold py-1 px-2.5 rounded-full border border-slate-200 bg-white shadow-sm hover:border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
+                      className="text-xs font-bold py-1.5 px-3 rounded-xl border border-slate-200 bg-white shadow-2xs hover:border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer transition-colors"
                     >
-                      <option value="New">New</option>
-                      <option value="Contacted">Contacted</option>
-                      <option value="Qualified">Qualified</option>
-                      <option value="Lost">Lost</option>
+                      <option value="New">🔵 New</option>
+                      <option value="Contacted">🟡 Contacted</option>
+                      <option value="Qualified">🟢 Qualified</option>
+                      <option value="Lost">🔴 Lost</option>
                     </select>
                   </div>
                 </td>
@@ -251,19 +265,26 @@ export const LeadTable: React.FC<LeadTableProps> = ({
                 </td>
 
                 {/* Actions */}
-                <td className="py-4 px-4 sm:px-6 text-right">
+                <td className="py-4 px-4 sm:px-6 text-right" onClick={(e) => e.stopPropagation()}>
                   <div className="flex items-center justify-end space-x-1">
+                    <button
+                      onClick={() => onSelectLead(lead)}
+                      title="View Full Profile"
+                      className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
+                    >
+                      <Eye className="w-4 h-4" />
+                    </button>
                     <button
                       onClick={() => onEdit(lead)}
                       title="Edit Lead"
-                      className="p-1.5 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
+                      className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
                     >
                       <Edit2 className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => onDelete(lead)}
                       title="Delete Lead"
-                      className="p-1.5 text-slate-500 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
+                      className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
