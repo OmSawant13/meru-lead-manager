@@ -1,5 +1,7 @@
 export type LeadStatus = 'New' | 'Contacted' | 'Qualified' | 'Lost';
 
+export type ViewMode = 'table' | 'kanban';
+
 export type LeadSource =
   | 'Website'
   | 'Referral'

@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useAuth } from './context/AuthContext';
 import { AuthView } from './components/AuthView';
-import { Navbar } from './components/Navbar';
-import { StatsDashboard } from './components/StatsDashboard';
-import { FilterBar, ViewMode } from './components/FilterBar';
+import { Sidebar } from './components/Sidebar';
+import { Header } from './components/Header';
+import { GreetingHero } from './components/GreetingHero';
+import { KPISparklineCards } from './components/KPISparklineCards';
+import { PipelineHealthAndDonut } from './components/PipelineHealthAndDonut';
+import { FilterBar } from './components/FilterBar';
 import { LeadTable } from './components/LeadTable';
 import { KanbanBoard } from './components/KanbanBoard';
 import { LeadDrawer } from './components/LeadDrawer';
@@ -12,12 +15,15 @@ import { LeadModal } from './components/LeadModal';
 import { DeleteConfirmModal } from './components/DeleteConfirmModal';
 import { useToast } from './components/Toast';
 import { leadApi } from './services/api';
-import { Lead, LeadStats, LeadStatus, PaginationMeta } from './types';
+import { Lead, LeadStats, LeadStatus, PaginationMeta, ViewMode } from './types';
 import { Loader2 } from 'lucide-react';
 
 export const App: React.FC = () => {
   const { isAuthenticated, isLoading: isAuthLoading } = useAuth();
   const { showToast } = useToast();
+
+  // Navigation tab state
+  const [currentNavTab, setCurrentNavTab] = useState('dashboard');
 
   // Leads and Stats Data
   const [leads, setLeads] = useState<Lead[]>([]);
@@ -68,10 +74,15 @@ export const App: React.FC = () => {
     }, 300);
   };
 
-  // Keyboard shortcut listener for '/'
+  // Keyboard shortcut listener for '⌘K' or '/'
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === '/' && (e.target as HTMLElement).tagName !== 'INPUT' && (e.target as HTMLElement).tagName !== 'TEXTAREA') {
+      if (
+        (e.key === 'k' && (e.metaKey || e.ctrlKey)) ||
+        (e.key === '/' &&
+          (e.target as HTMLElement).tagName !== 'INPUT' &&
+          (e.target as HTMLElement).tagName !== 'TEXTAREA')
+      ) {
         e.preventDefault();
         const searchInput = document.getElementById('global-lead-search') as HTMLInputElement | null;
         searchInput?.focus();
@@ -86,7 +97,6 @@ export const App: React.FC = () => {
     if (!isAuthenticated) return;
     setIsLeadsLoading(true);
     try {
-      // In Kanban view, fetch up to 100 leads to show complete board
       const queryLimit = viewMode === 'kanban' ? 100 : limit;
       const data = await leadApi.getLeads({
         search: debouncedSearch.trim() || undefined,
@@ -121,21 +131,18 @@ export const App: React.FC = () => {
     }
   }, [isAuthenticated]);
 
-  // Load data on query or view change
   useEffect(() => {
     if (isAuthenticated) {
       fetchLeads();
     }
   }, [fetchLeads, isAuthenticated]);
 
-  // Load stats initially
   useEffect(() => {
     if (isAuthenticated) {
       fetchStats();
     }
   }, [fetchStats, isAuthenticated]);
 
-  // Handle Sort Change
   const handleSort = (field: string) => {
     if (sortBy === field) {
       setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
@@ -146,7 +153,6 @@ export const App: React.FC = () => {
     setPage(1);
   };
 
-  // Filter Reset
   const handleResetFilters = () => {
     setSearch('');
     setDebouncedSearch('');
@@ -155,28 +161,25 @@ export const App: React.FC = () => {
     setPage(1);
   };
 
-  // Create Lead
   const handleCreateLead = async (leadData: Partial<Lead>) => {
     await leadApi.createLead(leadData);
-    showToast(`Lead "${leadData.name}" created successfully!`, 'success');
+    showToast(`Lead "${leadData.name}" captured successfully!`, 'success');
     fetchLeads();
     fetchStats();
   };
 
-  // Update Lead
   const handleUpdateLead = async (leadData: Partial<Lead>) => {
     if (!editingLead) return;
     await leadApi.updateLead(editingLead.id, leadData);
     showToast(`Lead "${leadData.name || editingLead.name}" updated!`, 'success');
     setEditingLead(null);
     if (selectedLeadForDrawer && selectedLeadForDrawer.id === editingLead.id) {
-      setSelectedLeadForDrawer((prev) => (prev ? { ...prev, ...leadData } as Lead : null));
+      setSelectedLeadForDrawer((prev) => (prev ? ({ ...prev, ...leadData } as Lead) : null));
     }
     fetchLeads();
     fetchStats();
   };
 
-  // Quick Status Change from Table dropdown or Kanban column
   const handleQuickStatusChange = async (lead: Lead, newStatus: LeadStatus) => {
     try {
       setLeads((prev) =>
@@ -186,15 +189,14 @@ export const App: React.FC = () => {
         setSelectedLeadForDrawer((prev) => (prev ? { ...prev, status: newStatus } : null));
       }
       await leadApi.updateLead(lead.id, { status: newStatus });
-      showToast(`Status updated to ${newStatus} for ${lead.name}`, 'info');
+      showToast(`Stage updated to ${newStatus} for ${lead.name}`, 'info');
       fetchStats();
     } catch (error) {
-      showToast('Failed to update status', 'error');
+      showToast('Failed to update stage', 'error');
       fetchLeads();
     }
   };
 
-  // Delete Lead
   const handleConfirmDelete = async () => {
     if (!deletingLead) return;
     setIsDeleting(true);
@@ -214,7 +216,6 @@ export const App: React.FC = () => {
     }
   };
 
-  // Export to CSV
   const handleExportCSV = () => {
     if (leads.length === 0) {
       showToast('No leads to export in the current view.', 'info');
@@ -232,7 +233,9 @@ export const App: React.FC = () => {
       `"${new Date(l.createdAt).toLocaleDateString()}"`,
     ]);
 
-    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map((e) => e.join(','))].join('\n');
+    const csvContent =
+      'data:text/csv;charset=utf-8,' +
+      [headers.join(','), ...rows.map((e) => e.join(','))].join('\n');
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
@@ -242,6 +245,10 @@ export const App: React.FC = () => {
     document.body.removeChild(link);
     showToast(`Exported ${leads.length} leads to CSV`, 'success');
   };
+
+  const total = stats?.total ?? 0;
+  const qualified = stats?.byStatus?.Qualified ?? 0;
+  const conversionRate = total > 0 ? Math.round((qualified / total) * 100) : 0;
 
   if (isAuthLoading) {
     return (
@@ -261,87 +268,106 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50/70 flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
-      {/* Top Navigation */}
-      <Navbar onOpenCreateModal={() => setIsCreateModalOpen(true)} />
+    <div className="min-h-screen bg-[#f8fafc] flex font-sans selection:bg-indigo-500 selection:text-white">
+      {/* Left Sidebar Navigation */}
+      <Sidebar
+        currentTab={currentNavTab}
+        onTabChange={(tab) => setCurrentNavTab(tab)}
+        viewMode={viewMode}
+        onViewModeChange={(m) => setViewMode(m)}
+      />
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* KPI Dashboard Analytics */}
-        <StatsDashboard
-          stats={stats}
-          selectedStatus={status}
-          onSelectStatus={(newStatus) => {
-            setStatus(newStatus);
-            setPage(1);
-          }}
-          isLoading={isStatsLoading}
-        />
-
-        {/* Filter & View Mode Bar */}
-        <FilterBar
+      <div className="flex-1 flex flex-col min-w-0 overflow-x-hidden">
+        {/* Top Header */}
+        <Header
+          onOpenCreateModal={() => setIsCreateModalOpen(true)}
           search={search}
           onSearchChange={handleSearchChange}
-          status={status}
-          onStatusChange={(newStatus) => {
-            setStatus(newStatus);
-            setPage(1);
-          }}
-          source={source}
-          onSourceChange={(newSource) => {
-            setSource(newSource);
-            setPage(1);
-          }}
-          onResetFilters={handleResetFilters}
-          onRefresh={() => {
-            fetchLeads();
-            fetchStats();
-          }}
-          isLoading={isLeadsLoading}
-          totalResults={pagination.total}
-          viewMode={viewMode}
-          onViewModeChange={(m) => setViewMode(m)}
-          onExportCSV={handleExportCSV}
         />
 
-        {/* View Switching: Table vs Kanban Pipeline */}
-        {viewMode === 'table' ? (
-          <>
-            <LeadTable
+        {/* Dashboard Canvas */}
+        <main className="flex-1 max-w-7xl w-full mx-auto px-6 sm:px-8 py-8">
+          {/* Greeting Hero Section */}
+          <GreetingHero
+            totalLeads={total}
+            conversionRate={conversionRate}
+          />
+
+          {/* 4 KPI Sparkline Cards */}
+          <KPISparklineCards
+            stats={stats}
+            selectedStatus={status}
+            onSelectStatus={(st) => {
+              setStatus(st);
+              setPage(1);
+            }}
+            isLoading={isStatsLoading}
+          />
+
+          {/* Pipeline Health Chevron Flow & Donut Chart */}
+          <PipelineHealthAndDonut stats={stats} />
+
+          {/* Leads Filter Bar */}
+          <FilterBar
+            search={search}
+            onSearchChange={handleSearchChange}
+            status={status}
+            onStatusChange={(newStatus) => {
+              setStatus(newStatus);
+              setPage(1);
+            }}
+            source={source}
+            onSourceChange={(newSource) => {
+              setSource(newSource);
+              setPage(1);
+            }}
+            onResetFilters={handleResetFilters}
+          />
+
+          {/* View Switching: Table vs Kanban Pipeline */}
+          {viewMode === 'table' ? (
+            <>
+              <LeadTable
+                leads={leads}
+                isLoading={isLeadsLoading}
+                sortBy={sortBy}
+                sortOrder={sortOrder}
+                onSort={handleSort}
+                onEdit={(lead) => setEditingLead(lead)}
+                onDelete={(lead) => setDeletingLead(lead)}
+                onSelectLead={(lead) => setSelectedLeadForDrawer(lead)}
+                onStatusChange={handleQuickStatusChange}
+                onOpenCreateModal={() => setIsCreateModalOpen(true)}
+                viewMode={viewMode}
+                onViewModeChange={(m) => setViewMode(m)}
+                onExportCSV={handleExportCSV}
+                totalCount={pagination.total}
+              />
+
+              {/* Pagination Controls */}
+              {pagination.total > 0 && (
+                <Pagination
+                  pagination={pagination}
+                  onPageChange={(newPage) => setPage(newPage)}
+                  onLimitChange={(newLimit) => {
+                    setLimit(newLimit);
+                    setPage(1);
+                  }}
+                />
+              )}
+            </>
+          ) : (
+            <KanbanBoard
               leads={leads}
               isLoading={isLeadsLoading}
-              sortBy={sortBy}
-              sortOrder={sortOrder}
-              onSort={handleSort}
-              onEdit={(lead) => setEditingLead(lead)}
-              onDelete={(lead) => setDeletingLead(lead)}
               onSelectLead={(lead) => setSelectedLeadForDrawer(lead)}
               onStatusChange={handleQuickStatusChange}
               onOpenCreateModal={() => setIsCreateModalOpen(true)}
             />
-
-            {/* Pagination Controls */}
-            {pagination.total > 0 && (
-              <Pagination
-                pagination={pagination}
-                onPageChange={(newPage) => setPage(newPage)}
-                onLimitChange={(newLimit) => {
-                  setLimit(newLimit);
-                  setPage(1);
-                }}
-              />
-            )}
-          </>
-        ) : (
-          <KanbanBoard
-            leads={leads}
-            isLoading={isLeadsLoading}
-            onSelectLead={(lead) => setSelectedLeadForDrawer(lead)}
-            onStatusChange={handleQuickStatusChange}
-            onOpenCreateModal={() => setIsCreateModalOpen(true)}
-          />
-        )}
-      </main>
+          )}
+        </main>
+      </div>
 
       {/* Slide-Over Lead Dossier Drawer */}
       <LeadDrawer
