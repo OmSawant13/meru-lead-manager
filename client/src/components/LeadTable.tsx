@@ -170,25 +170,25 @@ export const LeadTable: React.FC<LeadTableProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-1">
         {/* Left: Title + Tabs */}
         <div className="flex items-center space-x-6">
-          <h2 className={`text-2xl font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
+          <h2 className={`text-xl sm:text-2xl font-extrabold tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
             Leads
           </h2>
 
           {/* Sub-tabs with Smooth Active Pills */}
-          <div className="flex items-center space-x-1 sm:space-x-1.5 text-xs font-bold">
+          <div className="flex items-center space-x-1 sm:space-x-1.5 text-xs font-semibold">
             <button
               onClick={() => setActiveTab('all')}
               className={`px-3.5 py-2 rounded-xl transition-all duration-300 flex items-center space-x-1.5 cursor-pointer ${
                 activeTab === 'all'
-                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-black shadow-md shadow-indigo-500/25 scale-[1.02]'
+                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold shadow-md shadow-indigo-500/25 scale-[1.02]'
                   : isDark
                   ? 'text-slate-400 hover:text-white hover:bg-white/5'
-                  : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100/70'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
               }`}
             >
               <span>All Leads</span>
               <span
-                className={`px-1.5 py-0.2 rounded-full text-[10px] ${
+                className={`px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
                   activeTab === 'all'
                     ? 'bg-white/20 text-white'
                     : isDark
@@ -204,15 +204,15 @@ export const LeadTable: React.FC<LeadTableProps> = ({
               onClick={() => setActiveTab('my')}
               className={`hidden sm:flex px-3.5 py-2 rounded-xl transition-all duration-300 items-center space-x-1.5 cursor-pointer ${
                 activeTab === 'my'
-                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-black shadow-md shadow-indigo-500/25 scale-[1.02]'
+                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold shadow-md shadow-indigo-500/25 scale-[1.02]'
                   : isDark
                   ? 'text-slate-400 hover:text-white hover:bg-white/5'
-                  : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100/70'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
               }`}
             >
               <span>My Leads</span>
               <span
-                className={`px-1.5 py-0.2 rounded-full text-[10px] ${
+                className={`px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
                   activeTab === 'my'
                     ? 'bg-white/20 text-white'
                     : isDark
@@ -228,15 +228,15 @@ export const LeadTable: React.FC<LeadTableProps> = ({
               onClick={() => setActiveTab('priority')}
               className={`hidden md:flex px-3.5 py-2 rounded-xl transition-all duration-300 items-center space-x-1.5 cursor-pointer ${
                 activeTab === 'priority'
-                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-black shadow-md shadow-indigo-500/25 scale-[1.02]'
+                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold shadow-md shadow-indigo-500/25 scale-[1.02]'
                   : isDark
                   ? 'text-slate-400 hover:text-white hover:bg-white/5'
-                  : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100/70'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
               }`}
             >
               <span>High Priority</span>
               <span
-                className={`px-1.5 py-0.2 rounded-full text-[10px] ${
+                className={`px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
                   activeTab === 'priority'
                     ? 'bg-white/20 text-white'
                     : isDark
@@ -252,15 +252,15 @@ export const LeadTable: React.FC<LeadTableProps> = ({
               onClick={() => setActiveTab('today')}
               className={`hidden lg:flex px-3.5 py-2 rounded-xl transition-all duration-300 items-center space-x-1.5 cursor-pointer ${
                 activeTab === 'today'
-                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-black shadow-md shadow-indigo-500/25 scale-[1.02]'
+                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold shadow-md shadow-indigo-500/25 scale-[1.02]'
                   : isDark
                   ? 'text-slate-400 hover:text-white hover:bg-white/5'
-                  : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100/70'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
               }`}
             >
               <span>Due Today</span>
               <span
-                className={`px-1.5 py-0.2 rounded-full text-[10px] ${
+                className={`px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
                   activeTab === 'today'
                     ? 'bg-white/20 text-white'
                     : isDark
@@ -376,7 +376,7 @@ export const LeadTable: React.FC<LeadTableProps> = ({
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr
-                  className={`border-b text-[11px] font-black uppercase tracking-wider ${
+                  className={`border-b text-[11px] font-bold uppercase tracking-wider ${
                     isDark
                       ? 'bg-[#151d33]/80 border-white/10 text-slate-400'
                       : 'bg-slate-50/90 border-slate-200/80 text-slate-500'
@@ -397,7 +397,7 @@ export const LeadTable: React.FC<LeadTableProps> = ({
                       onClick={() => onSort('name')}
                       className="group inline-flex items-center focus:outline-none"
                     >
-                      Contact & Lead
+                      <span>CONTACT & LEAD</span>
                       {renderSortIcon('name')}
                     </button>
                   </th>
@@ -407,18 +407,18 @@ export const LeadTable: React.FC<LeadTableProps> = ({
                       onClick={() => onSort('company')}
                       className="group inline-flex items-center focus:outline-none"
                     >
-                      Company
+                      <span>COMPANY</span>
                       {renderSortIcon('company')}
                     </button>
                   </th>
-                  <th className="py-4 px-3 hidden lg:table-cell">Source</th>
+                  <th className="py-4 px-3 hidden lg:table-cell">SOURCE</th>
                   <th className="py-4 px-3">
                     <button
                       type="button"
                       onClick={() => onSort('status')}
                       className="group inline-flex items-center focus:outline-none"
                     >
-                      Pipeline Status
+                      <span>PIPELINE STATUS</span>
                       {renderSortIcon('status')}
                     </button>
                   </th>
@@ -428,11 +428,11 @@ export const LeadTable: React.FC<LeadTableProps> = ({
                       onClick={() => onSort('createdAt')}
                       className="group inline-flex items-center focus:outline-none"
                     >
-                      Captured On
+                      <span>CAPTURED ON</span>
                       {renderSortIcon('createdAt')}
                     </button>
                   </th>
-                  <th className="py-4 pr-4 sm:pr-6 pl-3 text-right">Actions</th>
+                  <th className="py-4 pr-4 sm:pr-6 pl-3 text-right">ACTIONS</th>
                 </tr>
               </thead>
               <tbody
@@ -481,7 +481,7 @@ export const LeadTable: React.FC<LeadTableProps> = ({
                           </div>
                           <div className="flex flex-col min-w-0">
                             <span
-                              className={`font-black tracking-tight transition-colors duration-200 truncate ${
+                              className={`font-bold tracking-tight text-sm transition-colors duration-200 truncate ${
                                 isDark
                                   ? 'text-white group-hover:text-indigo-400'
                                   : 'text-slate-900 group-hover:text-indigo-600'
@@ -489,7 +489,7 @@ export const LeadTable: React.FC<LeadTableProps> = ({
                             >
                               {lead.name}
                             </span>
-                            <span className="text-xs text-slate-400 font-medium truncate">
+                            <span className="text-xs text-slate-500 dark:text-slate-400 font-normal mt-0.5 truncate">
                               {lead.email}
                             </span>
                           </div>

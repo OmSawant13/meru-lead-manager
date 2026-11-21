@@ -85,11 +85,11 @@ export const FilterBar: React.FC<FilterBarProps> = ({
         {/* Dropdowns */}
         <div className="flex items-center gap-2">
           {/* Status Dropdown */}
-          <div className="relative min-w-[135px]">
+          <div className="relative min-w-[140px]">
             <select
               value={status}
               onChange={(e) => onStatusChange(e.target.value)}
-              className={`w-full text-xs font-bold py-2.5 px-3 rounded-2xl border cursor-pointer shadow-2xs transition-all ${
+              className={`w-full text-xs font-semibold py-2.5 px-3 rounded-2xl border cursor-pointer shadow-2xs transition-all ${
                 isDark
                   ? 'bg-[#182033] border-white/10 text-white'
                   : 'bg-slate-50 border-slate-200 text-slate-700'
@@ -104,11 +104,11 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           </div>
 
           {/* Source Dropdown */}
-          <div className="relative min-w-[130px]">
+          <div className="relative min-w-[135px]">
             <select
               value={source}
               onChange={(e) => onSourceChange(e.target.value)}
-              className={`w-full text-xs font-bold py-2.5 px-3 rounded-2xl border cursor-pointer shadow-2xs transition-all ${
+              className={`w-full text-xs font-semibold py-2.5 px-3 rounded-2xl border cursor-pointer shadow-2xs transition-all ${
                 isDark
                   ? 'bg-[#182033] border-white/10 text-white'
                   : 'bg-slate-50 border-slate-200 text-slate-700'

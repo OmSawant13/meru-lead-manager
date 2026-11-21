@@ -65,9 +65,8 @@ export const KPISparklineCards: React.FC<KPISparklineCardsProps> = ({
       title: 'Total Pipeline',
       statusValue: 'All',
       count: total,
-      subText: 'vs. prev 30 days',
-      badge: '↑ +33%',
-      badgeColor: isDark
+      badgeText: '↑ +33% vs 30d',
+      badgeClass: isDark
         ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30'
         : 'text-emerald-700 bg-emerald-50 border-emerald-200/80',
       icon: Layers,
@@ -80,7 +79,10 @@ export const KPISparklineCards: React.FC<KPISparklineCardsProps> = ({
       title: 'New Inquiries',
       statusValue: 'New',
       count: newCount,
-      percentage: `${newShare}%`,
+      badgeText: `${newShare}% of pipeline`,
+      badgeClass: isDark
+        ? 'text-blue-400 bg-blue-500/10 border-blue-500/30'
+        : 'text-blue-700 bg-blue-50 border-blue-200/80',
       icon: UserPlus,
       iconBg: isDark ? 'bg-blue-500/20 text-blue-400' : 'bg-blue-50 text-blue-600',
       sparklineColor: '#3b82f6',
@@ -91,7 +93,10 @@ export const KPISparklineCards: React.FC<KPISparklineCardsProps> = ({
       title: 'Qualified',
       statusValue: 'Qualified',
       count: qualifiedCount,
-      percentage: `${qualifiedShare}%`,
+      badgeText: `${qualifiedShare}% conversion`,
+      badgeClass: isDark
+        ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30'
+        : 'text-emerald-700 bg-emerald-50 border-emerald-200/80',
       icon: CheckCircle2,
       iconBg: isDark ? 'bg-emerald-500/20 text-emerald-400' : 'bg-emerald-50 text-emerald-600',
       sparklineColor: '#10b981',
@@ -102,7 +107,10 @@ export const KPISparklineCards: React.FC<KPISparklineCardsProps> = ({
       title: 'Closed / Lost',
       statusValue: 'Lost',
       count: lostCount,
-      percentage: `${lostShare}%`,
+      badgeText: `${lostShare}% drop-off`,
+      badgeClass: isDark
+        ? 'text-rose-400 bg-rose-500/10 border-rose-500/30'
+        : 'text-rose-700 bg-rose-50 border-rose-200/80',
       icon: XCircle,
       iconBg: isDark ? 'bg-rose-500/20 text-rose-400' : 'bg-rose-50 text-rose-600',
       sparklineColor: '#f43f5e',
@@ -122,7 +130,7 @@ export const KPISparklineCards: React.FC<KPISparklineCardsProps> = ({
             key={card.title}
             type="button"
             onClick={() => onSelectStatus(card.statusValue)}
-            className={`text-left p-5 rounded-[26px] relative overflow-hidden group cursor-pointer ${
+            className={`text-left p-5 rounded-[26px] relative overflow-hidden group cursor-pointer transition-all duration-300 ${
               isDark ? 'bento-card' : 'bento-card-light'
             } ${
               isSelected
@@ -131,13 +139,13 @@ export const KPISparklineCards: React.FC<KPISparklineCardsProps> = ({
             }`}
           >
             {/* Top row: Icon + Title */}
-            <div className="flex items-center space-x-2.5 mb-3.5">
+            <div className="flex items-center space-x-2.5 mb-3">
               <div
                 className={`w-8 h-8 rounded-xl ${card.iconBg} flex items-center justify-center flex-shrink-0 shadow-2xs transition-transform duration-300 group-hover:scale-110`}
               >
                 <Icon className="w-4 h-4" />
               </div>
-              <span className={`text-xs font-bold tracking-tight ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+              <span className={`text-[11px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                 {card.title}
               </span>
             </div>
@@ -145,29 +153,19 @@ export const KPISparklineCards: React.FC<KPISparklineCardsProps> = ({
             {/* Bottom Row: Count & Sparkline */}
             <div className="flex items-end justify-between">
               <div>
-                <div className="flex items-baseline space-x-2">
-                  <span className={`text-3xl font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                <div className="flex items-baseline space-x-1.5">
+                  <span className={`text-3xl sm:text-4xl font-extrabold tracking-tight tabular-nums ${isDark ? 'text-white' : 'text-slate-900'}`}>
                     {isLoading ? '...' : card.count}
                   </span>
-                  {card.percentage && (
-                    <span className="text-xs font-bold text-slate-400">
-                      {card.percentage}
-                    </span>
-                  )}
                 </div>
 
-                {card.badge && (
-                  <div className="mt-2.5 flex items-center space-x-1.5">
-                    <span
-                      className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-extrabold border ${card.badgeColor}`}
-                    >
-                      {card.badge}
-                    </span>
-                    <span className="text-[11px] text-slate-400 font-medium">
-                      {card.subText}
-                    </span>
-                  </div>
-                )}
+                <div className="mt-2.5 flex items-center">
+                  <span
+                    className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold border tracking-tight ${card.badgeClass}`}
+                  >
+                    {card.badgeText}
+                  </span>
+                </div>
               </div>
 
               {/* Sparkline Visual */}

@@ -43,10 +43,10 @@ export const PipelineHealthAndDonut: React.FC<PipelineHealthAndDonutProps> = ({ 
         }`}
       >
         <div>
-          <h3 className={`text-sm font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
+          <h3 className={`text-sm sm:text-base font-bold tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
             Pipeline Health
           </h3>
-          <p className="text-xs text-slate-400 mt-0.5">Lead flow across stages</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Lead progression velocity across stages</p>
         </div>
 
         {/* Chevron Stage Flow & Conversion stats */}
@@ -61,14 +61,14 @@ export const PipelineHealthAndDonut: React.FC<PipelineHealthAndDonutProps> = ({ 
                   : 'bg-indigo-50/80 border-indigo-100 text-indigo-950'
               }`}
             >
-              <span className={`block text-base font-black leading-none mb-1 ${isDark ? 'text-white' : 'text-indigo-950'}`}>
+              <span className={`block text-lg font-extrabold tabular-nums leading-none mb-1 ${isDark ? 'text-white' : 'text-indigo-950'}`}>
                 {total}
               </span>
-              <span className="text-[10px] font-extrabold text-indigo-400 uppercase tracking-wider">
+              <span className="text-[10px] font-bold text-indigo-500 dark:text-indigo-400 uppercase tracking-wider">
                 Total
               </span>
             </div>
-            <ArrowRight className="w-3.5 h-3.5 text-slate-400/50" />
+            <ArrowRight className="w-3.5 h-3.5 text-slate-300 dark:text-slate-600" />
 
             {/* New Step */}
             <div
@@ -78,31 +78,31 @@ export const PipelineHealthAndDonut: React.FC<PipelineHealthAndDonutProps> = ({ 
                   : 'bg-blue-50/80 border-blue-100 text-blue-950'
               }`}
             >
-              <span className={`block text-base font-black leading-none mb-1 ${isDark ? 'text-white' : 'text-blue-950'}`}>
+              <span className={`block text-lg font-extrabold tabular-nums leading-none mb-1 ${isDark ? 'text-white' : 'text-blue-950'}`}>
                 {newCount}
               </span>
-              <span className="text-[10px] font-extrabold text-blue-400 uppercase tracking-wider">
+              <span className="text-[10px] font-bold text-blue-500 dark:text-blue-400 uppercase tracking-wider">
                 New
               </span>
             </div>
-            <ArrowRight className="w-3.5 h-3.5 text-slate-400/50" />
+            <ArrowRight className="w-3.5 h-3.5 text-slate-300 dark:text-slate-600" />
 
             {/* Contacted Step */}
             <div
               className={`px-3.5 py-2.5 rounded-2xl text-center min-w-[62px] transition-transform duration-200 hover:scale-105 cursor-pointer shadow-2xs border ${
                 isDark
-                  ? 'bg-cyan-500/10 border-cyan-500/30 text-cyan-300'
-                  : 'bg-cyan-50/80 border-cyan-100 text-cyan-950'
+                  ? 'bg-amber-500/10 border-amber-500/30 text-amber-300'
+                  : 'bg-amber-50/80 border-amber-100 text-amber-950'
               }`}
             >
-              <span className={`block text-base font-black leading-none mb-1 ${isDark ? 'text-white' : 'text-cyan-950'}`}>
+              <span className={`block text-lg font-extrabold tabular-nums leading-none mb-1 ${isDark ? 'text-white' : 'text-amber-950'}`}>
                 {contactedCount}
               </span>
-              <span className="text-[10px] font-extrabold text-cyan-400 uppercase tracking-wider">
+              <span className="text-[10px] font-bold text-amber-500 dark:text-amber-400 uppercase tracking-wider">
                 Contacted
               </span>
             </div>
-            <ArrowRight className="w-3.5 h-3.5 text-slate-400/50" />
+            <ArrowRight className="w-3.5 h-3.5 text-slate-300 dark:text-slate-600" />
 
             {/* Qualified Step */}
             <div
@@ -112,14 +112,14 @@ export const PipelineHealthAndDonut: React.FC<PipelineHealthAndDonutProps> = ({ 
                   : 'bg-emerald-50/80 border-emerald-100 text-emerald-950'
               }`}
             >
-              <span className={`block text-base font-black leading-none mb-1 ${isDark ? 'text-white' : 'text-emerald-950'}`}>
+              <span className={`block text-lg font-extrabold tabular-nums leading-none mb-1 ${isDark ? 'text-white' : 'text-emerald-950'}`}>
                 {qualifiedCount}
               </span>
-              <span className="text-[10px] font-extrabold text-emerald-400 uppercase tracking-wider">
+              <span className="text-[10px] font-bold text-emerald-500 dark:text-emerald-400 uppercase tracking-wider">
                 Qualified
               </span>
             </div>
-            <ArrowRight className="w-3.5 h-3.5 text-slate-400/50" />
+            <ArrowRight className="w-3.5 h-3.5 text-slate-300 dark:text-slate-600" />
 
             {/* Closed / Lost Step */}
             <div
@@ -129,23 +129,23 @@ export const PipelineHealthAndDonut: React.FC<PipelineHealthAndDonutProps> = ({ 
                   : 'bg-rose-50/80 border-rose-100 text-rose-950'
               }`}
             >
-              <span className={`block text-base font-black leading-none mb-1 ${isDark ? 'text-white' : 'text-rose-950'}`}>
+              <span className={`block text-lg font-extrabold tabular-nums leading-none mb-1 ${isDark ? 'text-white' : 'text-rose-950'}`}>
                 {lostCount}
               </span>
-              <span className="text-[10px] font-extrabold text-rose-400 uppercase tracking-wider">
+              <span className="text-[10px] font-bold text-rose-500 dark:text-rose-400 uppercase tracking-wider">
                 Lost
               </span>
             </div>
           </div>
 
           {/* Right Conversion Stat Callout */}
-          <div className={`text-right sm:pl-5 sm:border-l flex-shrink-0 ${isDark ? 'border-white/10' : 'border-slate-100'}`}>
-            <span className={`text-3xl font-black tracking-tight block ${isDark ? 'text-white' : 'text-slate-900'}`}>
+          <div className={`text-right sm:pl-5 sm:border-l flex-shrink-0 ${isDark ? 'border-white/10' : 'border-slate-200/80'}`}>
+            <span className={`text-3xl font-extrabold tracking-tight tabular-nums block ${isDark ? 'text-white' : 'text-slate-900'}`}>
               {conversionRate}%
             </span>
-            <span className="text-xs text-slate-400 font-bold block mt-0.5">Conversion Rate</span>
-            <span className="inline-flex items-center text-[10px] font-extrabold text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full mt-1.5 border border-emerald-500/30 shadow-2xs">
-              <TrendingUp className="w-2.5 h-2.5 mr-1" />
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold block mt-0.5">Conversion Rate</span>
+            <span className="inline-flex items-center text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 px-2.5 py-0.5 rounded-full mt-1.5 border border-emerald-200 dark:border-emerald-500/30 shadow-2xs">
+              <TrendingUp className="w-3 h-3 mr-1" />
               +8 pp
             </span>
           </div>
@@ -159,7 +159,7 @@ export const PipelineHealthAndDonut: React.FC<PipelineHealthAndDonutProps> = ({ 
         }`}
       >
         <div>
-          <h3 className={`text-sm font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
+          <h3 className={`text-sm sm:text-base font-bold tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
             Stage Distribution
           </h3>
         </div>
@@ -183,7 +183,7 @@ export const PipelineHealthAndDonut: React.FC<PipelineHealthAndDonutProps> = ({ 
                 cy="50"
                 r="38"
                 fill="none"
-                stroke="#8b5cf6"
+                stroke="#6366f1"
                 strokeWidth="11"
                 strokeDasharray={`${newDash} ${c}`}
                 strokeDashoffset={newOffset}
@@ -219,7 +219,7 @@ export const PipelineHealthAndDonut: React.FC<PipelineHealthAndDonutProps> = ({ 
                 cy="50"
                 r="38"
                 fill="none"
-                stroke="#ec4899"
+                stroke="#f43f5e"
                 strokeWidth="11"
                 strokeDasharray={`${lostDash} ${c}`}
                 strokeDashoffset={lostOffset}
@@ -227,8 +227,8 @@ export const PipelineHealthAndDonut: React.FC<PipelineHealthAndDonutProps> = ({ 
               />
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className={`text-2xl font-black leading-none ${isDark ? 'text-white' : 'text-slate-900'}`}>{total}</span>
-              <span className="text-[10px] font-extrabold text-slate-400 mt-0.5 uppercase tracking-wider">Leads</span>
+              <span className={`text-2xl font-extrabold tabular-nums leading-none ${isDark ? 'text-white' : 'text-slate-900'}`}>{total}</span>
+              <span className="text-[10px] font-bold text-slate-400 mt-1 uppercase tracking-wider">Leads</span>
             </div>
           </div>
 
@@ -236,10 +236,10 @@ export const PipelineHealthAndDonut: React.FC<PipelineHealthAndDonutProps> = ({ 
           <div className="space-y-2 flex-1 text-xs font-semibold">
             <div className={`flex items-center justify-between p-1.5 rounded-xl transition-colors cursor-pointer ${isDark ? 'hover:bg-white/5' : 'hover:bg-slate-50'}`}>
               <div className="flex items-center space-x-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-violet-500 shadow-xs" />
+                <span className="w-2.5 h-2.5 rounded-full bg-indigo-500 shadow-xs" />
                 <span className={isDark ? 'text-slate-300' : 'text-slate-600'}>New Inquiries</span>
               </div>
-              <span className={`font-extrabold ${isDark ? 'text-white' : 'text-slate-900'}`}>{newPct}%</span>
+              <span className={`font-bold tabular-nums ${isDark ? 'text-white' : 'text-slate-900'}`}>{newPct}%</span>
             </div>
 
             <div className={`flex items-center justify-between p-1.5 rounded-xl transition-colors cursor-pointer ${isDark ? 'hover:bg-white/5' : 'hover:bg-slate-50'}`}>
@@ -247,7 +247,7 @@ export const PipelineHealthAndDonut: React.FC<PipelineHealthAndDonutProps> = ({ 
                 <span className="w-2.5 h-2.5 rounded-full bg-amber-500 shadow-xs" />
                 <span className={isDark ? 'text-slate-300' : 'text-slate-600'}>Contacted</span>
               </div>
-              <span className={`font-extrabold ${isDark ? 'text-white' : 'text-slate-900'}`}>{contactedPct}%</span>
+              <span className={`font-bold tabular-nums ${isDark ? 'text-white' : 'text-slate-900'}`}>{contactedPct}%</span>
             </div>
 
             <div className={`flex items-center justify-between p-1.5 rounded-xl transition-colors cursor-pointer ${isDark ? 'hover:bg-white/5' : 'hover:bg-slate-50'}`}>
@@ -255,15 +255,15 @@ export const PipelineHealthAndDonut: React.FC<PipelineHealthAndDonutProps> = ({ 
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-xs" />
                 <span className={isDark ? 'text-slate-300' : 'text-slate-600'}>Qualified</span>
               </div>
-              <span className={`font-extrabold ${isDark ? 'text-white' : 'text-slate-900'}`}>{qualifiedPct}%</span>
+              <span className={`font-bold tabular-nums ${isDark ? 'text-white' : 'text-slate-900'}`}>{qualifiedPct}%</span>
             </div>
 
             <div className={`flex items-center justify-between p-1.5 rounded-xl transition-colors cursor-pointer ${isDark ? 'hover:bg-white/5' : 'hover:bg-slate-50'}`}>
               <div className="flex items-center space-x-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-pink-500 shadow-xs" />
+                <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-xs" />
                 <span className={isDark ? 'text-slate-300' : 'text-slate-600'}>Closed / Lost</span>
               </div>
-              <span className={`font-extrabold ${isDark ? 'text-white' : 'text-slate-900'}`}>{lostPct}%</span>
+              <span className={`font-bold tabular-nums ${isDark ? 'text-white' : 'text-slate-900'}`}>{lostPct}%</span>
             </div>
           </div>
         </div>
