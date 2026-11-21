@@ -67,7 +67,7 @@ A modern, responsive, full-stack **Lead Manager** web application designed for s
 | **Frontend** | React 18 + Vite + TypeScript | Blazing fast HMR, type safety, component-driven UI. |
 | **Styling** | Tailwind CSS + Lucide Icons | Clean, utility-first modern design system with zero bloated CSS runtime. |
 | **Backend** | Node.js + Express + TypeScript | Lightweight, scalable REST API architecture matching Meru Technosoft's primary stack. |
-| **Database** | SQLite + Prisma ORM | Zero-friction local setup (no external PostgreSQL or Docker installation required to run), migrations, and fully type-safe queries. Easily switchable to PostgreSQL by updating `DATABASE_URL`. |
+| **Database** | MongoDB Atlas + Prisma ORM | Cloud-hosted NoSQL cluster, schema migrations, and fully type-safe queries. |
 | **Validation** | Zod | Robust, composable runtime validation on both API requests and data boundaries. |
 | **Auth** | JWT + bcryptjs | Stateless, industry-standard Bearer token authentication. |
 | **Testing** | Jest + Supertest | Comprehensive end-to-end HTTP integration testing for API endpoints. |
@@ -230,7 +230,7 @@ npm test
 
 1. **Lead Uniqueness**: A single user might manage contacts with similar names across different organizations, so emails are not constrained to be globally unique across different users, but are unique within a company context.
 2. **Lead Ownership**: Leads belong strictly to the user who created them (multi-tenant model). An organization/team-sharing role (e.g. Sales Manager vs. Sales Rep) can easily be layered on top via role-based access control (RBAC).
-3. **Database Choice**: SQLite was chosen for local development to guarantee **zero setup friction** (evaluators do not need to install or configure PostgreSQL or Docker). Because Prisma is used, migrating to PostgreSQL or MySQL requires only changing the `provider = "postgresql"` line in `schema.prisma`.
+3. **Database Choice**: MongoDB Atlas was chosen as the cloud database, managed via Prisma ORM for end-to-end type safety, automated indexing, and high-performance collection queries.
 
 ---
 

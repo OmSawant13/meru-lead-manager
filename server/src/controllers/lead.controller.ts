@@ -36,10 +36,10 @@ export const getLeads = async (
     if (search && search.trim() !== '') {
       const term = search.trim();
       where.OR = [
-        { name: { contains: term } },
-        { email: { contains: term } },
-        { company: { contains: term } },
-        { phone: { contains: term } },
+        { name: { contains: term, mode: 'insensitive' } },
+        { email: { contains: term, mode: 'insensitive' } },
+        { company: { contains: term, mode: 'insensitive' } },
+        { phone: { contains: term, mode: 'insensitive' } },
       ];
     }
 
