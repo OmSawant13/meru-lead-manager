@@ -226,7 +226,7 @@ npm test
 
 ## 🔮 What I Would Improve With More Time
 
-1. **Activity Timeline & Audit Trail**: Granular history tracking for each status transition (e.g. `New` → `Contacted` on Nov 21 by Alex Morgan).
+1. **Activity Timeline & Audit Trail**: Granular history tracking for each status transition (e.g. `New` → `Contacted` on Nov 21 by Aarav Sharma).
 2. **Bulk CSV Import with Field Mapping**: Allow sales reps to upload CSV files and map columns (`Name`, `Email`, `Company`) directly into the pipeline.
 3. **Automated Follow-up Reminders**: Webhook or background job to flag leads that remain in `New` status for more than 48 hours without contact.
 4. **Role-Based Access Control (RBAC)**: Team workspace collaboration with Admin, Manager, and Sales Rep permission tiers.

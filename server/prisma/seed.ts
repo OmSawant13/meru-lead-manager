@@ -4,9 +4,9 @@ import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('🌱 Starting database seed...');
+  console.log('🌱 Starting database seed with authentic Indian business leads...');
 
-  // Create demo user
+  // Create demo user with Indian identity
   const demoEmail = 'demo@example.com';
   let demoUser = await prisma.user.findUnique({
     where: { email: demoEmail },
@@ -18,18 +18,21 @@ async function main() {
   if (!demoUser) {
     demoUser = await prisma.user.create({
       data: {
-        name: 'Alex Morgan',
+        name: 'Aarav Sharma',
         email: demoEmail,
         password: hashedPassword,
       },
     });
-    console.log(`👤 Created Demo User: ${demoEmail} (Password: password123)`);
+    console.log(`👤 Created Demo User: Aarav Sharma (${demoEmail} / password123)`);
   } else {
     demoUser = await prisma.user.update({
       where: { email: demoEmail },
-      data: { password: hashedPassword },
+      data: {
+        name: 'Aarav Sharma',
+        password: hashedPassword,
+      },
     });
-    console.log(`👤 Updated Demo User: ${demoEmail}`);
+    console.log(`👤 Updated Demo User: Aarav Sharma (${demoEmail})`);
   }
 
   // Clear existing leads for demo user to ensure clean state
@@ -39,76 +42,76 @@ async function main() {
 
   const sampleLeads = [
     {
-      name: 'Sarah Connor',
-      email: 'sarah.connor@cyberdyne.io',
-      phone: '+1 (555) 234-5678',
-      company: 'Cyberdyne Systems',
-      source: 'Website',
-      status: 'Qualified',
-      notes: 'Interested in enterprise security and autonomous monitoring.',
-    },
-    {
-      name: 'David Wallace',
-      email: 'dwallace@dundermifflin.com',
-      phone: '+1 (555) 456-7890',
-      company: 'Dunder Mifflin Inc.',
+      name: 'Rajesh Patel',
+      email: 'rajesh.patel@vortexsolutions.in',
+      phone: '+91 98234 56789',
+      company: 'Vortex Solutions Mumbai',
       source: 'Referral',
-      status: 'Contacted',
-      notes: 'Looking to optimize regional branch CRM and paper sales workflow.',
-    },
-    {
-      name: 'Elena Rostova',
-      email: 'elena@novatech.co',
-      phone: '+44 20 7946 0912',
-      company: 'Nova Technologies',
-      source: 'LinkedIn',
-      status: 'New',
-      notes: 'Found via founder outreach campaign. Wants pricing for 50 seats.',
-    },
-    {
-      name: 'Marcus Brody',
-      email: 'm.brody@museum-archaeology.org',
-      phone: '+1 (555) 876-5432',
-      company: 'National Heritage Foundation',
-      source: 'Cold Outreach',
-      status: 'Lost',
-      notes: 'Budget cuts postponed software upgrades until Q3 next year.',
+      status: 'Qualified',
+      notes: 'Referred by CFO. Looking for enterprise CRM integration with SAP ERP.',
     },
     {
       name: 'Priya Sharma',
-      email: 'priya.sharma@cloudzen.in',
+      email: 'priya.sharma@cloudzenlabs.in',
       phone: '+91 98765 43210',
-      company: 'CloudZen Labs',
+      company: 'CloudZen Labs Bengaluru',
       source: 'Event',
       status: 'Qualified',
       notes: 'Met at Bangalore Tech Summit. High buying intent, requested custom demo.',
     },
     {
-      name: 'Jordan Lee',
-      email: 'jordan.lee@apexfinance.com',
-      phone: '+1 (555) 912-3456',
-      company: 'Apex Financial Partners',
-      source: 'Advertisement',
-      status: 'Contacted',
-      notes: 'Clicked Google Search ad. Exploring automated lead ingestion.',
-    },
-    {
-      name: 'Claire Dupont',
-      email: 'claire@lumieremedia.fr',
-      phone: '+33 1 42 68 55 00',
-      company: 'Lumiere Media',
+      name: 'Ananya Deshmukh',
+      email: 'ananya.deshmukh@tatanex.com',
+      phone: '+91 97654 32109',
+      company: 'Tata NexGen Technologies',
       source: 'Website',
       status: 'New',
-      notes: 'Submitted contact form from landing page pricing section.',
+      notes: 'Submitted inbound contact form requesting 75 sales executive seats.',
     },
     {
-      name: 'Rajesh Patel',
-      email: 'rajesh@vortexsol.com',
-      phone: '+91 98234 56789',
-      company: 'Vortex Solutions',
-      source: 'Referral',
+      name: 'Vikramaditya Singhania',
+      email: 'vikram.singhania@apexfin.co.in',
+      phone: '+91 98112 34567',
+      company: 'Apex Financial Services Delhi',
+      source: 'LinkedIn',
+      status: 'Contacted',
+      notes: 'Connected via LinkedIn sales outreach. Discussed automated lead distribution.',
+    },
+    {
+      name: 'Kavita Iyer',
+      email: 'kavita.iyer@luminaanalytics.in',
+      phone: '+91 99401 23456',
+      company: 'Lumina Analytics Chennai',
+      source: 'Website',
+      status: 'New',
+      notes: 'Interested in conversion velocity analytics and custom reporting dashboard.',
+    },
+    {
+      name: 'Aditya Verma',
+      email: 'aditya.verma@vermalogistics.in',
+      phone: '+91 98990 12345',
+      company: 'Verma Logistics & Retail',
+      source: 'Cold Outreach',
+      status: 'Contacted',
+      notes: 'In initial outreach discussion. Reviewing Q3 software migration budget.',
+    },
+    {
+      name: 'Sneha Kulkarni',
+      email: 'sneha.kulkarni@puneinnovate.org',
+      phone: '+91 98220 54321',
+      company: 'Pune Innovation Hub',
+      source: 'Event',
       status: 'Qualified',
-      notes: 'Referred by Priya Sharma. Needs multi-pipeline integration.',
+      notes: 'Met at Pune Startup Expo. High procurement priority, requested invoice draft.',
+    },
+    {
+      name: 'Manish Malhotra',
+      email: 'manish.malhotra@heritagefabrics.in',
+      phone: '+91 98300 98765',
+      company: 'Heritage Retail Group Kolkata',
+      source: 'Cold Outreach',
+      status: 'Lost',
+      notes: 'Budget allocated to offline retail store expansion this financial year.',
     },
   ];
 
@@ -121,7 +124,7 @@ async function main() {
     });
   }
 
-  console.log(`✅ Seeded ${sampleLeads.length} sample leads successfully.`);
+  console.log(`✅ Seeded ${sampleLeads.length} sample Indian business leads successfully.`);
 }
 
 main()

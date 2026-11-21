@@ -173,7 +173,7 @@ export const LeadModal: React.FC<LeadModalProps> = ({
                   setName(e.target.value);
                   if (errors.name) setErrors((prev) => ({ ...prev, name: '' }));
                 }}
-                placeholder="e.g. Sarah Connor"
+                placeholder="e.g. Rajesh Patel"
                 className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-2xl border transition-all font-medium ${
                   errors.name
                     ? 'border-rose-500 bg-rose-500/5 focus:ring-4 focus:ring-rose-500/10'
@@ -218,7 +218,7 @@ export const LeadModal: React.FC<LeadModalProps> = ({
                   type="text"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  placeholder="+1 (555) 000-0000"
+                  placeholder="+91 98234 56789"
                   className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-2xl border transition-all font-medium ${
                     isDark
                       ? 'bg-white/5 border-white/10 text-white placeholder-slate-500 focus:bg-[#161c2e] focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20'
@@ -237,7 +237,7 @@ export const LeadModal: React.FC<LeadModalProps> = ({
                 type="text"
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
-                placeholder="Cyberdyne Systems"
+                placeholder="Tata Consultancy Services"
                 className={`w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-2xl border transition-all font-medium ${
                   isDark
                     ? 'bg-white/5 border-white/10 text-white placeholder-slate-500 focus:bg-[#161c2e] focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20'

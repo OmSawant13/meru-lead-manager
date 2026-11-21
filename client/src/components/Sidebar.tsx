@@ -170,7 +170,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </div>
             <div className="min-w-0">
               <p className={`text-xs font-bold truncate ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                {user?.name || 'Alex Morgan'}
+                {user?.name || 'Aarav Sharma'}
               </p>
               <p className="text-[10px] text-slate-400 truncate">
                 {user?.email || 'demo@example.com'}

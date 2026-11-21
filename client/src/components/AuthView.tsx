@@ -66,7 +66,7 @@ export const AuthView: React.FC = () => {
     setIsSubmitting(true);
     try {
       await demoLogin();
-      showToast('Logged in as Demo User (Alex Morgan).');
+      showToast('Logged in as Demo User (Aarav Sharma).');
     } catch (err: any) {
       setError(
         err.response?.data?.message || 'Failed to login with demo user. Run `npm run db:setup`.'
@@ -205,7 +205,7 @@ export const AuthView: React.FC = () => {
                       type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      placeholder="Alex Morgan"
+                      placeholder="Aarav Sharma"
                       required={!isLogin}
                       className="w-full pl-10 pr-3.5 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
                     />
