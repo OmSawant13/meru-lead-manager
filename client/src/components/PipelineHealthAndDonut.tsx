@@ -1,12 +1,15 @@
 import React from 'react';
 import { LeadStats } from '../types';
 import { ArrowRight, TrendingUp } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 interface PipelineHealthAndDonutProps {
   stats: LeadStats | null;
 }
 
 export const PipelineHealthAndDonut: React.FC<PipelineHealthAndDonutProps> = ({ stats }) => {
+  const { isDark } = useTheme();
+
   const total = stats?.total ?? 0;
   const newCount = stats?.byStatus?.New ?? 0;
   const contactedCount = stats?.byStatus?.Contacted ?? 0;
@@ -34,9 +37,15 @@ export const PipelineHealthAndDonut: React.FC<PipelineHealthAndDonutProps> = ({ 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 mb-8">
       {/* Left Card: Pipeline Health & Chevron Funnel */}
-      <div className="card-hover lg:col-span-7 bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs flex flex-col justify-between">
+      <div
+        className={`lg:col-span-7 p-6 rounded-[28px] flex flex-col justify-between ${
+          isDark ? 'bento-card' : 'bento-card-light'
+        }`}
+      >
         <div>
-          <h3 className="text-sm font-black text-slate-900 tracking-tight">Pipeline Health</h3>
+          <h3 className={`text-sm font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
+            Pipeline Health
+          </h3>
           <p className="text-xs text-slate-400 mt-0.5">Lead flow across stages</p>
         </div>
 
@@ -45,67 +54,97 @@ export const PipelineHealthAndDonut: React.FC<PipelineHealthAndDonutProps> = ({ 
           {/* Chevron steps with gentle hover scales */}
           <div className="flex flex-wrap items-center gap-2 flex-1">
             {/* Total Step */}
-            <div className="px-3.5 py-2.5 rounded-2xl bg-indigo-50/70 border border-indigo-100 text-center min-w-[62px] transition-transform duration-200 hover:scale-105 cursor-pointer shadow-2xs">
-              <span className="block text-base font-black text-indigo-950 leading-none mb-1">
+            <div
+              className={`px-3.5 py-2.5 rounded-2xl text-center min-w-[62px] transition-transform duration-200 hover:scale-105 cursor-pointer shadow-2xs border ${
+                isDark
+                  ? 'bg-indigo-500/10 border-indigo-500/30 text-indigo-300'
+                  : 'bg-indigo-50/80 border-indigo-100 text-indigo-950'
+              }`}
+            >
+              <span className={`block text-base font-black leading-none mb-1 ${isDark ? 'text-white' : 'text-indigo-950'}`}>
                 {total}
               </span>
-              <span className="text-[10px] font-extrabold text-indigo-600 uppercase tracking-wider">
+              <span className="text-[10px] font-extrabold text-indigo-400 uppercase tracking-wider">
                 Total
               </span>
             </div>
-            <ArrowRight className="w-3.5 h-3.5 text-slate-300" />
+            <ArrowRight className="w-3.5 h-3.5 text-slate-400/50" />
 
             {/* New Step */}
-            <div className="px-3.5 py-2.5 rounded-2xl bg-blue-50/70 border border-blue-100 text-center min-w-[62px] transition-transform duration-200 hover:scale-105 cursor-pointer shadow-2xs">
-              <span className="block text-base font-black text-blue-950 leading-none mb-1">
+            <div
+              className={`px-3.5 py-2.5 rounded-2xl text-center min-w-[62px] transition-transform duration-200 hover:scale-105 cursor-pointer shadow-2xs border ${
+                isDark
+                  ? 'bg-blue-500/10 border-blue-500/30 text-blue-300'
+                  : 'bg-blue-50/80 border-blue-100 text-blue-950'
+              }`}
+            >
+              <span className={`block text-base font-black leading-none mb-1 ${isDark ? 'text-white' : 'text-blue-950'}`}>
                 {newCount}
               </span>
-              <span className="text-[10px] font-extrabold text-blue-600 uppercase tracking-wider">
+              <span className="text-[10px] font-extrabold text-blue-400 uppercase tracking-wider">
                 New
               </span>
             </div>
-            <ArrowRight className="w-3.5 h-3.5 text-slate-300" />
+            <ArrowRight className="w-3.5 h-3.5 text-slate-400/50" />
 
             {/* Contacted Step */}
-            <div className="px-3.5 py-2.5 rounded-2xl bg-cyan-50/70 border border-cyan-100 text-center min-w-[62px] transition-transform duration-200 hover:scale-105 cursor-pointer shadow-2xs">
-              <span className="block text-base font-black text-cyan-950 leading-none mb-1">
+            <div
+              className={`px-3.5 py-2.5 rounded-2xl text-center min-w-[62px] transition-transform duration-200 hover:scale-105 cursor-pointer shadow-2xs border ${
+                isDark
+                  ? 'bg-cyan-500/10 border-cyan-500/30 text-cyan-300'
+                  : 'bg-cyan-50/80 border-cyan-100 text-cyan-950'
+              }`}
+            >
+              <span className={`block text-base font-black leading-none mb-1 ${isDark ? 'text-white' : 'text-cyan-950'}`}>
                 {contactedCount}
               </span>
-              <span className="text-[10px] font-extrabold text-cyan-700 uppercase tracking-wider">
+              <span className="text-[10px] font-extrabold text-cyan-400 uppercase tracking-wider">
                 Contacted
               </span>
             </div>
-            <ArrowRight className="w-3.5 h-3.5 text-slate-300" />
+            <ArrowRight className="w-3.5 h-3.5 text-slate-400/50" />
 
             {/* Qualified Step */}
-            <div className="px-3.5 py-2.5 rounded-2xl bg-emerald-50/70 border border-emerald-100 text-center min-w-[62px] transition-transform duration-200 hover:scale-105 cursor-pointer shadow-2xs">
-              <span className="block text-base font-black text-emerald-950 leading-none mb-1">
+            <div
+              className={`px-3.5 py-2.5 rounded-2xl text-center min-w-[62px] transition-transform duration-200 hover:scale-105 cursor-pointer shadow-2xs border ${
+                isDark
+                  ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
+                  : 'bg-emerald-50/80 border-emerald-100 text-emerald-950'
+              }`}
+            >
+              <span className={`block text-base font-black leading-none mb-1 ${isDark ? 'text-white' : 'text-emerald-950'}`}>
                 {qualifiedCount}
               </span>
-              <span className="text-[10px] font-extrabold text-emerald-700 uppercase tracking-wider">
+              <span className="text-[10px] font-extrabold text-emerald-400 uppercase tracking-wider">
                 Qualified
               </span>
             </div>
-            <ArrowRight className="w-3.5 h-3.5 text-slate-300" />
+            <ArrowRight className="w-3.5 h-3.5 text-slate-400/50" />
 
             {/* Closed / Lost Step */}
-            <div className="px-3.5 py-2.5 rounded-2xl bg-rose-50/70 border border-rose-100 text-center min-w-[62px] transition-transform duration-200 hover:scale-105 cursor-pointer shadow-2xs">
-              <span className="block text-base font-black text-rose-950 leading-none mb-1">
+            <div
+              className={`px-3.5 py-2.5 rounded-2xl text-center min-w-[62px] transition-transform duration-200 hover:scale-105 cursor-pointer shadow-2xs border ${
+                isDark
+                  ? 'bg-rose-500/10 border-rose-500/30 text-rose-300'
+                  : 'bg-rose-50/80 border-rose-100 text-rose-950'
+              }`}
+            >
+              <span className={`block text-base font-black leading-none mb-1 ${isDark ? 'text-white' : 'text-rose-950'}`}>
                 {lostCount}
               </span>
-              <span className="text-[10px] font-extrabold text-rose-700 uppercase tracking-wider">
+              <span className="text-[10px] font-extrabold text-rose-400 uppercase tracking-wider">
                 Lost
               </span>
             </div>
           </div>
 
           {/* Right Conversion Stat Callout */}
-          <div className="text-right sm:pl-5 sm:border-l border-slate-100 flex-shrink-0">
-            <span className="text-3xl font-black text-slate-900 tracking-tight block">
+          <div className={`text-right sm:pl-5 sm:border-l flex-shrink-0 ${isDark ? 'border-white/10' : 'border-slate-100'}`}>
+            <span className={`text-3xl font-black tracking-tight block ${isDark ? 'text-white' : 'text-slate-900'}`}>
               {conversionRate}%
             </span>
             <span className="text-xs text-slate-400 font-bold block mt-0.5">Conversion Rate</span>
-            <span className="inline-flex items-center text-[10px] font-extrabold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full mt-1.5 border border-emerald-200/60 shadow-2xs">
+            <span className="inline-flex items-center text-[10px] font-extrabold text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full mt-1.5 border border-emerald-500/30 shadow-2xs">
               <TrendingUp className="w-2.5 h-2.5 mr-1" />
               +8 pp
             </span>
@@ -114,13 +153,19 @@ export const PipelineHealthAndDonut: React.FC<PipelineHealthAndDonutProps> = ({ 
       </div>
 
       {/* Right Card: Stage Distribution Donut Chart */}
-      <div className="card-hover lg:col-span-5 bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs flex flex-col justify-between">
+      <div
+        className={`lg:col-span-5 p-6 rounded-[28px] flex flex-col justify-between ${
+          isDark ? 'bento-card' : 'bento-card-light'
+        }`}
+      >
         <div>
-          <h3 className="text-sm font-black text-slate-900 tracking-tight">Stage Distribution</h3>
+          <h3 className={`text-sm font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
+            Stage Distribution
+          </h3>
         </div>
 
         <div className="my-2 flex items-center justify-between gap-5">
-          {/* Donut Chart SVG */}
+          {/* Donut Chart SVG with Center Glow */}
           <div className="relative w-32 h-32 flex items-center justify-center flex-shrink-0">
             <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
               {/* Background track */}
@@ -129,7 +174,7 @@ export const PipelineHealthAndDonut: React.FC<PipelineHealthAndDonutProps> = ({ 
                 cy="50"
                 r="38"
                 fill="none"
-                stroke="#f1f5f9"
+                stroke={isDark ? 'rgba(255,255,255,0.06)' : '#f1f5f9'}
                 strokeWidth="11"
               />
               {/* New slice */}
@@ -182,43 +227,43 @@ export const PipelineHealthAndDonut: React.FC<PipelineHealthAndDonutProps> = ({ 
               />
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className="text-2xl font-black text-slate-900 leading-none">{total}</span>
+              <span className={`text-2xl font-black leading-none ${isDark ? 'text-white' : 'text-slate-900'}`}>{total}</span>
               <span className="text-[10px] font-extrabold text-slate-400 mt-0.5 uppercase tracking-wider">Leads</span>
             </div>
           </div>
 
           {/* Legend on Right with Smooth Hover States */}
           <div className="space-y-2 flex-1 text-xs font-semibold">
-            <div className="flex items-center justify-between p-1.5 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer">
+            <div className={`flex items-center justify-between p-1.5 rounded-xl transition-colors cursor-pointer ${isDark ? 'hover:bg-white/5' : 'hover:bg-slate-50'}`}>
               <div className="flex items-center space-x-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-violet-500 shadow-xs" />
-                <span className="text-slate-600">New Inquiries</span>
+                <span className={isDark ? 'text-slate-300' : 'text-slate-600'}>New Inquiries</span>
               </div>
-              <span className="font-extrabold text-slate-900">{newPct}%</span>
+              <span className={`font-extrabold ${isDark ? 'text-white' : 'text-slate-900'}`}>{newPct}%</span>
             </div>
 
-            <div className="flex items-center justify-between p-1.5 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer">
+            <div className={`flex items-center justify-between p-1.5 rounded-xl transition-colors cursor-pointer ${isDark ? 'hover:bg-white/5' : 'hover:bg-slate-50'}`}>
               <div className="flex items-center space-x-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-amber-500 shadow-xs" />
-                <span className="text-slate-600">Contacted</span>
+                <span className={isDark ? 'text-slate-300' : 'text-slate-600'}>Contacted</span>
               </div>
-              <span className="font-extrabold text-slate-900">{contactedPct}%</span>
+              <span className={`font-extrabold ${isDark ? 'text-white' : 'text-slate-900'}`}>{contactedPct}%</span>
             </div>
 
-            <div className="flex items-center justify-between p-1.5 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer">
+            <div className={`flex items-center justify-between p-1.5 rounded-xl transition-colors cursor-pointer ${isDark ? 'hover:bg-white/5' : 'hover:bg-slate-50'}`}>
               <div className="flex items-center space-x-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-xs" />
-                <span className="text-slate-600">Qualified</span>
+                <span className={isDark ? 'text-slate-300' : 'text-slate-600'}>Qualified</span>
               </div>
-              <span className="font-extrabold text-slate-900">{qualifiedPct}%</span>
+              <span className={`font-extrabold ${isDark ? 'text-white' : 'text-slate-900'}`}>{qualifiedPct}%</span>
             </div>
 
-            <div className="flex items-center justify-between p-1.5 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer">
+            <div className={`flex items-center justify-between p-1.5 rounded-xl transition-colors cursor-pointer ${isDark ? 'hover:bg-white/5' : 'hover:bg-slate-50'}`}>
               <div className="flex items-center space-x-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-pink-500 shadow-xs" />
-                <span className="text-slate-600">Closed / Lost</span>
+                <span className={isDark ? 'text-slate-300' : 'text-slate-600'}>Closed / Lost</span>
               </div>
-              <span className="font-extrabold text-slate-900">{lostPct}%</span>
+              <span className={`font-extrabold ${isDark ? 'text-white' : 'text-slate-900'}`}>{lostPct}%</span>
             </div>
           </div>
         </div>

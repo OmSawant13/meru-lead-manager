@@ -1,6 +1,7 @@
 import React from 'react';
 import { AlertTriangle, X } from 'lucide-react';
 import { Lead } from '../types';
+import { useTheme } from '../context/ThemeContext';
 
 interface DeleteConfirmModalProps {
   isOpen: boolean;
@@ -17,66 +18,66 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
   onConfirm,
   isDeleting,
 }) => {
+  const { isDark } = useTheme();
   if (!isOpen || !lead) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/50 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200">
-      <div className="relative bg-white rounded-3xl max-w-md w-full shadow-2xl border border-slate-100 p-6 sm:p-7 animate-in zoom-in-95 duration-200">
-        <div className="flex items-start justify-between mb-4">
-          <div className="w-12 h-12 rounded-2xl bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-600 flex-shrink-0 shadow-xs">
-            <AlertTriangle className="w-6 h-6" />
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in duration-200">
+      <div
+        className={`w-full max-w-md rounded-[28px] sm:rounded-[32px] border shadow-2xl overflow-hidden transition-all duration-300 animate-in zoom-in-95 ${
+          isDark
+            ? 'bg-[#0f1424] border-white/10 text-white shadow-[0_25px_60px_rgba(0,0,0,0.7)]'
+            : 'bg-white border-slate-200/90 text-slate-900 shadow-2xl'
+        }`}
+      >
+        <div className="p-6">
+          <div className="flex items-start justify-between">
+            <div className="w-12 h-12 rounded-2xl bg-rose-500/10 text-rose-500 border border-rose-500/20 flex items-center justify-center flex-shrink-0">
+              <AlertTriangle className="w-6 h-6" />
+            </div>
+            <button
+              onClick={onClose}
+              className={`p-2 rounded-xl transition-colors cursor-pointer ${
+                isDark ? 'text-slate-400 hover:text-white hover:bg-white/10' : 'text-slate-400 hover:text-slate-700 hover:bg-slate-100'
+              }`}
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
-          <button
-            onClick={onClose}
-            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
 
-        <h3 className="text-lg font-black text-slate-900 tracking-tight mb-2">
-          Delete Opportunity
-        </h3>
-
-        <p className="text-xs sm:text-sm text-slate-500 mb-4 leading-relaxed font-medium">
-          Are you sure you want to permanently delete lead{' '}
-          <strong className="text-slate-900">{lead.name}</strong>
-          {lead.company ? (
-            <>
-              {' '}from <strong className="text-slate-900">{lead.company}</strong>
-            </>
-          ) : null}
-          ? This record will be permanently purged from your database.
-        </p>
-
-        <div className="p-3.5 bg-slate-50/80 rounded-2xl border border-slate-200/80 text-xs text-slate-500 mb-6 space-y-1">
-          <div className="flex justify-between py-0.5">
-            <span className="font-semibold text-slate-400">Email:</span>
-            <span className="font-bold text-slate-800">{lead.email}</span>
+          <div className="mt-4">
+            <h3 className={`text-lg font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
+              Delete Lead Opportunity?
+            </h3>
+            <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+              Are you sure you want to permanently remove <strong className={isDark ? 'text-white' : 'text-slate-800'}>{lead.name}</strong> from your pipeline?
+              {lead.company && <span> Associated with <strong>{lead.company}</strong>.</span>}
+              This action cannot be undone.
+            </p>
           </div>
-          <div className="flex justify-between py-0.5">
-            <span className="font-semibold text-slate-400">Stage:</span>
-            <span className="font-bold text-slate-800">{lead.status}</span>
-          </div>
-        </div>
 
-        <div className="flex items-center justify-end space-x-3">
-          <button
-            type="button"
-            onClick={onClose}
-            disabled={isDeleting}
-            className="px-4 py-2 text-xs font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            onClick={onConfirm}
-            disabled={isDeleting}
-            className="px-5 py-2.5 text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 active:scale-95 disabled:opacity-50 rounded-2xl shadow-md shadow-rose-500/20 transition-all duration-200 cursor-pointer"
-          >
-            {isDeleting ? 'Deleting...' : 'Yes, Delete Lead'}
-          </button>
+          <div className="mt-6 flex items-center justify-end space-x-3">
+            <button
+              type="button"
+              onClick={onClose}
+              disabled={isDeleting}
+              className={`px-4 py-2 text-xs font-bold rounded-2xl border transition-all cursor-pointer ${
+                isDark
+                  ? 'bg-white/5 hover:bg-white/10 text-slate-300 border-white/10'
+                  : 'bg-white hover:bg-slate-100 text-slate-700 border-slate-200'
+              }`}
+            >
+              Keep Lead
+            </button>
+            <button
+              type="button"
+              onClick={onConfirm}
+              disabled={isDeleting}
+              className="px-5 py-2 text-xs font-bold text-white bg-rose-600 hover:bg-rose-500 active:scale-98 rounded-2xl shadow-lg shadow-rose-600/30 transition-all cursor-pointer disabled:opacity-50"
+            >
+              {isDeleting ? 'Deleting...' : 'Yes, Delete'}
+            </button>
+          </div>
         </div>
       </div>
     </div>

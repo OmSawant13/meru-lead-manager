@@ -4,6 +4,7 @@ import {
   X,
   Filter,
 } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 interface FilterBarProps {
   search: string;
@@ -43,10 +44,15 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   onSourceChange,
   onResetFilters,
 }) => {
+  const { isDark } = useTheme();
   const hasActiveFilters = search.trim() !== '' || status !== 'All' || source !== 'All';
 
   return (
-    <div className="bg-white p-3 sm:p-3.5 rounded-2xl border border-slate-200/80 shadow-xs mb-3 space-y-2">
+    <div
+      className={`p-3.5 rounded-[24px] mb-3 space-y-2 border transition-all duration-300 ${
+        isDark ? 'bento-card' : 'bento-card-light'
+      }`}
+    >
       {/* Controls Row */}
       <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
         {/* Search Input */}
@@ -60,12 +66,16 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Search by name, email, company..."
-            className="w-full pl-9 pr-10 py-2 text-xs sm:text-sm bg-slate-50/70 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-medium"
+            className={`w-full pl-9 pr-10 py-2.5 text-xs sm:text-sm rounded-2xl border transition-all font-medium ${
+              isDark
+                ? 'bg-white/5 border-white/10 text-white placeholder-slate-400 focus:bg-[#1a2136] focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20'
+                : 'bg-slate-50/80 border-slate-200 text-slate-900 placeholder-slate-400 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/15'
+            }`}
           />
           {search && (
             <button
               onClick={() => onSearchChange('')}
-              className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600"
+              className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-200"
             >
               <X className="w-4 h-4" />
             </button>
@@ -79,10 +89,14 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             <select
               value={status}
               onChange={(e) => onStatusChange(e.target.value)}
-              className="w-full text-xs font-semibold py-2 px-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 cursor-pointer shadow-2xs"
+              className={`w-full text-xs font-bold py-2.5 px-3 rounded-2xl border cursor-pointer shadow-2xs transition-all ${
+                isDark
+                  ? 'bg-[#182033] border-white/10 text-white'
+                  : 'bg-slate-50 border-slate-200 text-slate-700'
+              }`}
             >
               {STATUS_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>
+                <option key={opt.value} value={opt.value} className={isDark ? 'bg-slate-900 text-white' : ''}>
                   {opt.label}
                 </option>
               ))}
@@ -94,10 +108,14 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             <select
               value={source}
               onChange={(e) => onSourceChange(e.target.value)}
-              className="w-full text-xs font-semibold py-2 px-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 cursor-pointer shadow-2xs"
+              className={`w-full text-xs font-bold py-2.5 px-3 rounded-2xl border cursor-pointer shadow-2xs transition-all ${
+                isDark
+                  ? 'bg-[#182033] border-white/10 text-white'
+                  : 'bg-slate-50 border-slate-200 text-slate-700'
+              }`}
             >
               {SOURCE_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>
+                <option key={opt.value} value={opt.value} className={isDark ? 'bg-slate-900 text-white' : ''}>
                   {opt.label}
                 </option>
               ))}
@@ -109,12 +127,16 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             <button
               onClick={onResetFilters}
               title="Clear all filters"
-              className="p-2 text-rose-600 hover:bg-rose-50 rounded-xl border border-rose-200 transition-colors text-xs font-bold"
+              className="px-3 py-2 text-rose-500 hover:bg-rose-500/10 rounded-2xl border border-rose-500/30 transition-colors text-xs font-extrabold cursor-pointer"
             >
               Clear
             </button>
           ) : (
-            <div className="p-2 text-slate-400 border border-slate-200 rounded-xl bg-slate-50 shadow-2xs">
+            <div
+              className={`p-2.5 rounded-2xl border shadow-2xs ${
+                isDark ? 'bg-white/5 border-white/10 text-slate-400' : 'bg-slate-50 border-slate-200 text-slate-400'
+              }`}
+            >
               <Filter className="w-4 h-4" />
             </div>
           )}

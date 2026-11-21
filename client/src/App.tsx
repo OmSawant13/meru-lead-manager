@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useAuth } from './context/AuthContext';
+import { useTheme } from './context/ThemeContext';
 import { AuthView } from './components/AuthView';
 import { Sidebar } from './components/Sidebar';
 import { Header } from './components/Header';
@@ -20,6 +21,7 @@ import { Loader2 } from 'lucide-react';
 
 export const App: React.FC = () => {
   const { isAuthenticated, isLoading: isAuthLoading } = useAuth();
+  const { isDark } = useTheme();
   const { showToast } = useToast();
 
   // Navigation tab state
@@ -268,8 +270,14 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] flex font-sans selection:bg-indigo-500 selection:text-white">
-      {/* Left Sidebar Navigation */}
+    <div
+      className={`h-screen w-screen p-3 sm:p-4 lg:p-5 flex gap-4 overflow-hidden font-sans transition-colors duration-300 ${
+        isDark
+          ? 'bg-[#090d16] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.18),rgba(255,255,255,0))] text-slate-100'
+          : 'bg-[#edf2f7] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(99,102,241,0.08),rgba(255,255,255,0))] text-slate-900'
+      }`}
+    >
+      {/* Left Sidebar Floating Island */}
       <Sidebar
         currentTab={currentNavTab}
         onTabChange={(tab) => setCurrentNavTab(tab)}
@@ -277,8 +285,14 @@ export const App: React.FC = () => {
         onViewModeChange={(m) => setViewMode(m)}
       />
 
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-x-hidden">
+      {/* Main Dashboard Floating Island */}
+      <div
+        className={`flex-1 h-full rounded-[28px] sm:rounded-[32px] border flex flex-col min-w-0 overflow-hidden shadow-2xl transition-all duration-300 ${
+          isDark
+            ? 'bg-[#0f1524]/90 backdrop-blur-2xl border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.6)]'
+            : 'bg-white/95 backdrop-blur-2xl border-slate-200/90 shadow-[0_25px_60px_rgba(15,23,42,0.06)]'
+        }`}
+      >
         {/* Top Header */}
         <Header
           onOpenCreateModal={() => setIsCreateModalOpen(true)}
@@ -287,7 +301,7 @@ export const App: React.FC = () => {
         />
 
         {/* Dashboard Canvas */}
-        <main className="flex-1 max-w-7xl w-full mx-auto px-6 sm:px-8 py-8">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden p-5 sm:p-7 space-y-7">
           {/* Greeting Hero Section */}
           <GreetingHero
             totalLeads={total}
