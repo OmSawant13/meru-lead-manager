@@ -139,7 +139,7 @@ export const AuthView: React.FC = () => {
                 </span>
               </div>
               <p className="text-xs text-slate-600 mb-3 leading-relaxed">
-                Skip typing credentials. Log in as <strong>Alex Morgan</strong> with 8 pre-seeded leads across all pipeline stages.
+                Skip typing credentials. Log in as <strong>Aarav Sharma</strong> with 8 pre-seeded leads across all pipeline stages.
               </p>
               <button
                 type="button"

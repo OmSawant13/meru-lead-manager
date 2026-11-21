@@ -8,6 +8,7 @@ A production-grade, highly-responsive, full-stack **Lead Manager CRM** designed 
 ---
 
 ## 📑 Table of Contents
+0. [🎬 Video Demo Walkthrough](#-video-demo-walkthrough)
 1. [Assignment Requirements Checklist](#-assignment-requirements-checklist)
 2. [Tech Stack & Architecture Decisions](#-tech-stack--architecture-decisions)
 3. [Architecture Overview](#-architecture-overview)
@@ -18,6 +19,24 @@ A production-grade, highly-responsive, full-stack **Lead Manager CRM** designed 
 8. [Assumptions Made](#-assumptions-made)
 9. [What I Would Improve With More Time](#-what-i-would-improve-with-more-time)
 10. [Submission Notes (Proud Of / Tricky Parts)](#-submission-notes-for-evaluation)
+
+---
+
+## 🎬 Video Demo Walkthrough
+
+A high-definition automated walkthrough (1m 37s, 1440x900) demonstrating every required and bonus feature with real-time UI interactions:
+
+- 📹 **Demo Video File**: [`demo.mp4`](demo.mp4) (H.264 High Profile, faststart-optimized)
+- **Features Demonstrated in Order**:
+  1. **1-Click Screening Access**: Auto-authentication as **Aarav Sharma** (`demo@example.com`).
+  2. **Bento Grid Dashboard**: Real-time KPI summary with SVG gradient sparklines.
+  3. **1-Click Status Isolation**: Clicking KPI cards instantly filters the pipeline.
+  4. **Obsidian Dark & Crisp Light Theme**: Seamless mode switching with persistent theme memory.
+  5. **Debounced Real-Time Search**: Sub-300ms live multi-field filtering across Indian leads.
+  6. **620px Slide-Over Lead Dossier Drawer**: Comprehensive lead profile with 1-click clipboard copy.
+  7. **Enterprise Lead Capture**: Adding **Aman Gupta** (*boAt Lifestyle India*) with Zod form validation.
+  8. **Dual-View Kanban Board**: Visual stage progression across *New*, *Contacted*, *Qualified*, and *Lost*.
+  9. **CSV Data Export**: One-click download of the complete pipeline with ISO timestamps.
 
 ---
 

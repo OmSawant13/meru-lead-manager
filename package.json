@@ -19,6 +19,7 @@
     "db:studio": "npm run db:studio --workspace=server"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "playwright-core": "^1.65.1"
   }
 }
